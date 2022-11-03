@@ -2,10 +2,10 @@
 
 namespace HW1
 {
-    internal class Buy
+    public class Buy
     {
         private Product _product;
-        private double _count;
+        private int _count;
 
         public Product Product
         {
@@ -15,12 +15,12 @@ namespace HW1
             }
             set
             {
-                if (value.GetType() != typeof(Product) || value == null) { Console.WriteLine("Cannot set this value;"); }
-                else { _product = value; }
+                if (value == null) { throw new ArgumentNullException("Cannot accept null as a product."); }
+                _product = value.DeepCopy();
             }
         }
 
-        public double Count
+        public int Count
         {
             get 
             {
@@ -28,8 +28,8 @@ namespace HW1
             }
             set
             {
-                if (((double)value).GetType() != typeof(double)) { Console.WriteLine("value is not a number;"); }
-                else { _count = (double)value; }
+                if (value < 0) { throw new ArgumentOutOfRangeException("Count cannot be negative."); }
+                _count = value;
             }
         }
 
@@ -37,28 +37,27 @@ namespace HW1
         {
         }
 
-        public Buy(Product product, double count)
+        public Buy(Product product, int count)
         {
-            Product = product;
+            Product = product.DeepCopy();
             Count = count;
         }
 
-        public Buy(string name, WeightUnits weightunit, double weight, Currencies currency, double price, double count)
+        public Buy(Buy buy)
         {
-            Product = new Product
-                                {
-                                    Name = name,
-                                    Weight = weight,
-                                    WeightUnit = weightunit,
-                                    Price = price,
-                                    Currency = currency
-                                };
-            Count = count;
+            Product = buy.Product.DeepCopy();
+            Count = buy.Count;
         }
 
         public double BuySum()
         {
             return Product.Price * Count;
+        }
+
+        public Buy DeepCopy()
+        {
+            Buy copy = new Buy(this.Product.DeepCopy(), this.Count);
+            return copy;
         }
 
         public override string ToString()

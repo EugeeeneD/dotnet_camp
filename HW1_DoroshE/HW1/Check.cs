@@ -6,17 +6,24 @@ using System.Threading.Tasks;
 
 namespace HW1
 {
-    internal class Check : Buy
+    public class Check : Buy
     {
         public Check()
         {
         }
 
-        public void CheckOut(Buy buy)
+        public void CheckOut(Basket basket)
         {
-            if (buy == null) { Console.WriteLine("Object is null."); }
+            if (basket == null) { throw new ArgumentNullException("Cannot accept null."); }
 
-            Console.WriteLine($"Product: {buy.Product}, count: {buy.Count}, sum: {buy.BuySum()}");
+            Console.WriteLine("Basket:");
+            
+            Console.WriteLine(basket);
+
+            Console.WriteLine("------------");
+
+            Console.WriteLine($"Basket summa equals: {basket.SumOfBasket()} UAH.");
+            
         }
     }
 }

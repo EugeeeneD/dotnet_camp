@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace HW1
 {
-    internal class Product
+    public class Product : IProduct
     {
         public enum WeightUnits
         {
-            MILIGRAMM,
             GRAMM,
             KILOGRAMM,
-            TONNE,
-            BYPIECE
+            LITTERS
         }
 
         public enum Currencies
@@ -29,6 +27,13 @@ namespace HW1
         private WeightUnits _weightUnit;
         private double _price;
         private Currencies _currency;
+
+        private readonly Dictionary<Currencies, double> exchangeRate = new Dictionary<Currencies, double>()
+        {
+            [ Currencies.UAH ] = 1,
+            [ Currencies.USD ] = 36.9,
+            [ Currencies.EUR ] = 36.56
+        };
 
         public Product()
         {
@@ -60,14 +65,8 @@ namespace HW1
             }
             set
             {
-                if (value != null)
-                {
-                    if (value.GetType() != typeof(string))
-                    {
-                        throw new ArgumentException("Inputed value is not a string.");
-                    }
-                    _name = value;
-                }
+                if (value != null) { _name = value; }
+
                 else { throw new ArgumentNullException("Name cannot be null."); }
             } 
         }
@@ -80,15 +79,9 @@ namespace HW1
             }
             set
             {
-                if (value != null)
-                {
-                    if (value.GetType() != typeof(double))
-                    {
-                        throw new ArgumentException("Inputed value is not a double.");
-                    }
-                    _weight = value;
-                }
-                else { throw new ArgumentNullException("Weight cannot be null."); }
+                if (value < 0) { throw new ArgumentException("Weight cannot be negative."); }
+
+                _weight = value;
             }
         }
 
@@ -100,15 +93,7 @@ namespace HW1
             }
             set
             {
-                if (value != null)
-                {
-                    if (value.GetType() != typeof(WeightUnits))
-                    {
-                        throw new ArgumentException("Inputed value is not a weight unit.");
-                    }
-                    _weightUnit = value;
-                }
-                else { throw new ArgumentNullException("You should choose weight unit."); }
+                _weightUnit = value;
             }
         }
 
@@ -120,15 +105,8 @@ namespace HW1
             }
             set
             {
-                if (value != null)
-                {
-                    if (value.GetType() != typeof(double))
-                    {
-                        throw new ArgumentException("Inputed value is not a double.");
-                    }
-                    _price = value;
-                }
-                else { throw new ArgumentNullException("Price cannot be null."); }
+                if (value < 0) { throw new ArgumentException("Price cannot be negative."); }
+                _price = value;
             }
         }
 
@@ -140,21 +118,42 @@ namespace HW1
             }
             set
             {
-                if (value != null)
-                {
-                    if (value.GetType() != typeof(Currencies))
-                    {
-                        throw new ArgumentException("Inputed value is not a valid currency.");
-                    }
-                    _currency = value;
-                }
-                else { throw new ArgumentNullException("You should choose currency."); }
+                _currency = value;
             }
+        }
+
+        public void ConvertPrice()
+        {
+            Price = Price * exchangeRate[Currency];
+            Currency = Currencies.UAH;
+        }
+
+        public bool ChangePrice(double percent)
+        {
+            if (percent < -100) { throw new ArgumentOutOfRangeException("Percentage cannot be lower -100."); }
+            Price *= 1 + (percent / 100);
+            return true;
         }
 
         public override string ToString()
         {
             return $"Name: {Name}, weight: {Weight} {WeightUnit}, price: {Price} {Currency}";
+        }
+
+        public Product DeepCopy()
+        {
+            Product copy = new Product(this);
+            return copy;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj.GetHashCode() == Name.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
         }
     }
 }
