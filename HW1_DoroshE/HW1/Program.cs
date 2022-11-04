@@ -3,7 +3,7 @@
 namespace HW1
 {
     internal class Program
-    {
+    {//yes
         static void Main(string[] args)
         {
             // Product part
