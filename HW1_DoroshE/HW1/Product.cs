@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HW1
 {
-    public class Product : IProduct
+    public class Product : IProduct, IComparable, IComparer<Product>
     {
         public enum WeightUnits
         {
@@ -30,9 +31,9 @@ namespace HW1
 
         private readonly Dictionary<Currencies, double> exchangeRate = new Dictionary<Currencies, double>()
         {
-            [ Currencies.UAH ] = 1,
-            [ Currencies.USD ] = 36.9,
-            [ Currencies.EUR ] = 36.56
+            [Currencies.UAH] = 1,
+            [Currencies.USD] = 36.9,
+            [Currencies.EUR] = 36.56
         };
 
         public Product()
@@ -57,7 +58,7 @@ namespace HW1
             Currency = currency;
         }
 
-        public string Name 
+        public string Name
         {
             get
             {
@@ -68,7 +69,7 @@ namespace HW1
                 if (value != null) { _name = value; }
 
                 else { throw new ArgumentNullException("Name cannot be null."); }
-            } 
+            }
         }
 
         public double Weight
@@ -111,7 +112,7 @@ namespace HW1
         }
 
         public Currencies Currency
-        { 
+        {
             get
             {
                 return _currency;
@@ -148,12 +149,45 @@ namespace HW1
 
         public override bool Equals(object? obj)
         {
-            return obj.GetHashCode() == Name.GetHashCode();
+            return obj.GetHashCode() == this.ToString().GetHashCode();
         }
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode();
+            return this.ToString().GetHashCode();
+        }
+
+        public int CompareTo(object? obj)
+        {
+            if (obj == null) { return 1; }
+
+            Product otherProduct = obj as Product;
+            if (otherProduct != null)
+            {
+                var otherCopy = otherProduct.DeepCopy();
+                otherCopy.ConvertPrice();
+                otherProduct.ConvertPrice();
+
+                var thisCopy = this.DeepCopy();
+                thisCopy.ConvertPrice();
+
+                return thisCopy.Price.CompareTo(otherCopy.Price);
+            }
+            else
+                throw new ArgumentException("Object is not a product.");
+        }
+
+        public int Compare(Product? x, Product? y)
+        {
+            Product xCopy = x.DeepCopy();
+            xCopy.ConvertPrice();
+
+            Product yCopy = y.DeepCopy();
+            yCopy.ConvertPrice();
+
+            if (xCopy.Price == yCopy.Price) { return 0; }
+            if (xCopy.Price > yCopy.Price) { return 1; }
+            return -1;
         }
     }
 }

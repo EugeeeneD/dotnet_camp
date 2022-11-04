@@ -52,6 +52,22 @@ storage.PrintAllInfo();
 Console.WriteLine("----------------------------\n");
 
 // getting storage from user
-Storage storage2 = new Storage();
+// uncomment to check
+/*Storage storage2 = new Storage();
 storage2.GetProductsFromUser();
-storage2.PrintAllInfo();
+storage2.PrintAllInfo();*/
+
+Console.WriteLine("----------------------------\n");
+Console.WriteLine("HW5:\n");
+Console.WriteLine("Before sorting:\n");
+Console.WriteLine(storage);
+
+// SortBy can compare only by numbers
+Console.WriteLine("\nAfter sorting by price:\n");
+Console.WriteLine(storage.SortBy(x => x.Key.Price));
+
+Console.WriteLine("Before sorting:\n");
+Console.WriteLine(storage);
+
+Console.WriteLine("\nAfter sorting by name:\n");
+Console.WriteLine(storage.SortByName());

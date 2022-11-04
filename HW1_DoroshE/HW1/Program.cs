@@ -61,6 +61,15 @@ namespace HW1
 
             Check check = new Check();
             check.CheckOut(basket);
+
+            Console.WriteLine("---------------------------------------------------------");
+            Console.WriteLine("\nHW5 part:\n");
+
+            Product hw5Product_1 = new Product(name: "Buryak", price: 1.22, currency: Product.Currencies.USD, weight: 1, weightunit: Product.WeightUnits.KILOGRAMM);
+            Product hw5Product_2 = new Product(name: "Schparagus", price: 75, currency: Product.Currencies.UAH, weight: 1, weightunit: Product.WeightUnits.KILOGRAMM);
+            Product hw5Product_3 = new Product(name: "Potato", price: 150, currency: Product.Currencies.UAH, weight: 10, weightunit: Product.WeightUnits.KILOGRAMM);
+
+            Console.WriteLine(hw5Product_1.CompareTo(hw5Product_2));
         }
     }
 }

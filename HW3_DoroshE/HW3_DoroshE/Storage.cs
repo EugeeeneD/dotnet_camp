@@ -14,6 +14,15 @@ namespace HW3_DoroshE
         // Продукт та к-сть на складі
         private Dictionary<Product, int> _storage;
 
+        public Dictionary<Product, int> StorageCopy
+        { 
+            get
+            {
+                Dictionary<Product, int> storageCopy = _storage.ToDictionary(x => x.Key, x => x.Value);
+                return storageCopy;
+            }
+        }
+
         public int this[Product product]
         {
             get
@@ -144,7 +153,7 @@ namespace HW3_DoroshE
                         Product product = CreatingProduct();
                         int.TryParse(Console.ReadLine(), out int amount);
 
-                        if(!IsProductCorrect(product)) { break; }
+                        if(!IsProductInputedCorrect(product)) { break; }
 
                         input.Add(product, amount);
                         break;
@@ -155,7 +164,7 @@ namespace HW3_DoroshE
 
                         var meat = CreatingMeat(meatProduct);
 
-                        if (!IsProductCorrect(meat)) { break; }
+                        if (!IsProductInputedCorrect(meat)) { break; }
 
                         input.Add(meat, meatAmount);
                         break;
@@ -166,7 +175,7 @@ namespace HW3_DoroshE
 
                         var dairy = CreatingDairyProduct(dairyProduct);
 
-                        if (!IsProductCorrect(dairyProduct)) { break; }
+                        if (!IsProductInputedCorrect(dairyProduct)) { break; }
 
                         input.Add(dairy, dairyProductAmount);
                         break;
@@ -289,7 +298,7 @@ namespace HW3_DoroshE
             return new Dairy_products(product, expirationDate);
         }
 
-        public bool IsProductCorrect(Product product)
+        public bool IsProductInputedCorrect(Product product)
         {
             dynamic obj = product;
             Console.WriteLine(obj.ToString());
@@ -298,6 +307,20 @@ namespace HW3_DoroshE
             if (Console.ReadLine().ToLower() == "y") { return true; }
 
             return false;
+        }
+
+        public Storage SortBy(Func<KeyValuePair<Product, int>, double> func)
+        {
+            Dictionary<Product, int> sortedStorage = StorageCopy.OrderBy(func).ToDictionary(x => x.Key, x => x.Value);
+
+            return new Storage(sortedStorage);
+        }
+
+        public Storage SortByName()
+        {
+            Dictionary<Product, int> sortedStorage = StorageCopy.OrderBy(x => x.Key.Name).ToDictionary(x => x.Key, x => x.Value);
+
+            return new Storage(sortedStorage);
         }
     }
 }
