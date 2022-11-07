@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 namespace HW2
 {
     internal class Task1
-    {
+    {// лишній конструктор
         public Task1()
         {
         }
-
+// параметри повинні іменуватись з маленької літери
+        // Більш функціональний підхід
         public int[,] VerticalSnake(int Row, int Column)
         {
             int[,] res = new int[Row, Column];
@@ -19,7 +20,7 @@ namespace HW2
             int k = 1;
 
             for (int i = 0; i < Column; i++)
-            {
+            {//Можна оптимізувати
                 if (i % 2 == 0)
                 {
                     for (int j = 0; j < Row; j++)
@@ -44,7 +45,7 @@ namespace HW2
             int[,] res = new int[n, n];
 
             int k = 1;
-
+// можна оптимізувати
             for (int i = 0; i < n*2; i++)
             {
                 if (i < n)
@@ -116,7 +117,7 @@ namespace HW2
             int k = 1;
             int endPoint = Row * Column - 1;
             int x = 0, iter = 0;
-
+//можна оптимізувати
             while (true)
             {
                 for (var i = iter; i < Column - x; i++)
