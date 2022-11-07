@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HW2
-{
+{//Є питання до проєктування. Поясню усно
     internal class Task3
     {
         public bool HaveThroughHole(int[,,] cube)
