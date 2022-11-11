@@ -15,7 +15,7 @@ electricity.FillDict();
 /*Console.WriteLine(electricity.ApartmentsWereNoElectricityWasUsed()[0]);*/
 
 
-// not working properlu yet
+// not working properly yet
 /*AddressLastName morgentau = new AddressLastName() { Address = "Alexander platz 41/22", LastName = "Morgentau", Room = 25 };
 
 electricity.ExpensesForExactClient(morgentau).ForEach(x => Console.WriteLine(x));*/

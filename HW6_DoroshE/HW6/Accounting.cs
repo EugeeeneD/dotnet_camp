@@ -97,7 +97,7 @@ namespace HW6
             return res;
         }
 
-        // not working properlu yet
+        // not working properly yet
         /*        public List<double> ExpensesForExactClient(AddressLastName person)
                 {
                     List<double> res = new List<double>();

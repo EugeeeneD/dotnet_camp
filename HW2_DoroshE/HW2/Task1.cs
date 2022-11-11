@@ -8,24 +8,24 @@ namespace HW2
 {
     internal class Task1
     {
-        public int[,] VerticalSnake(int Row, int Column)
+        public int[,] VerticalSnake(int row, int column)
         {
-            int[,] res = new int[Row, Column];
+            int[,] res = new int[row, column];
 
             int k = 1;
 
-            for (int i = 0; i < Column; i++)
-            {
+            for (int i = 0; i < column; i++)
+            {//Можна оптимізувати
                 if (i % 2 == 0)
                 {
-                    for (int j = 0; j < Row; j++)
+                    for (int j = 0; j < row; j++)
                     {
                         res[j, i] = k++;
                     }
                 }
                 else
                 {
-                    for (int j = Row - 1; j >= 0; j--)
+                    for (int j = row - 1; j >= 0; j--)
                     {
                         res[j, i] = k++;
                     }
@@ -40,7 +40,7 @@ namespace HW2
             int[,] res = new int[n, n];
 
             int k = 1;
-
+// можна оптимізувати
             for (int i = 0; i < n*2; i++)
             {
                 if (i < n)
@@ -105,17 +105,17 @@ namespace HW2
             newMat.Print(matrix);
         }*/
 
-        public int[,] HorizontalSpiralSnake(int Row, int Column)
+        public int[,] HorizontalSpiralSnake(int row, int column)
         {
-            int[,] res = new int[Row, Column];
+            int[,] res = new int[row, column];
 
             int k = 1;
-            int endPoint = Row * Column - 1;
+            int endPoint = row * column - 1;
             int x = 0, iter = 0;
-
+//можна оптимізувати
             while (true)
             {
-                for (var i = iter; i < Column - x; i++)
+                for (var i = iter; i < column - x; i++)
                 {
                     res[iter, i] = k++;
                 }
@@ -126,20 +126,20 @@ namespace HW2
 
                 if (k >= endPoint) { break; }
 
-                for (var i = iter; i < Row - x; i++)
+                for (var i = iter; i < row - x; i++)
                 {
-                    res[i, Column - iter] = k++;
+                    res[i, column - iter] = k++;
                 }
                 if (k >= endPoint) { break; }
 
-                for (var i = Column - iter - 1; i >= x; i--)
+                for (var i = column - iter - 1; i >= x; i--)
                 {
-                    res[Row - iter, i] = k++;
+                    res[row - iter, i] = k++;
                 }
 
                 if (k >= endPoint) { break; }
 
-                for (var i = Row - iter - 1; i > x; i--)
+                for (var i = row - iter - 1; i > x; i--)
                 {
                     res[i, x] = k++;
                 }
@@ -148,10 +148,10 @@ namespace HW2
             return res;
         }
 
-        public int[,] VerticalSpiralSnake(int Row, int Column)
+        public int[,] VerticalSpiralSnake(int row, int column)
         {
-            int[,] res = new int[Row, Column];
-            int endPoint = Row * Column + 1;
+            int[,] res = new int[row, column];
+            int endPoint = row * column + 1;
             int iter = 0;
             int k = 1;
 
@@ -159,25 +159,25 @@ namespace HW2
             {
                 if (k >= endPoint) { break; }
                 //down
-                for (int i = iter; i < Row - iter; i++)
+                for (int i = iter; i < row - iter; i++)
                 {
                     res[i, iter] = k++;
                 }
                 if (k >= endPoint) { break; } 
                 //toRight
-                for (int i = iter + 1; i < Column - iter; i++)
+                for (int i = iter + 1; i < column - iter; i++)
                 {
-                    res[Row - iter - 1,i] = k++;
+                    res[row - iter - 1,i] = k++;
                 }
                 if (k >= endPoint) { break; }
                 //up
-                for (int i = Row - 2 - iter; i >= iter; i--)
+                for (int i = row - 2 - iter; i >= iter; i--)
                 {
-                    res[i, Column - iter - 1] = k++;
+                    res[i, column - iter - 1] = k++;
                 }
                 if (k >= endPoint) { break; }
                 //toLeft
-                for (int i = Column - iter - 1; i > iter + 1; i--)
+                for (int i = column - iter - 1; i > iter + 1; i--)
                 {
                     res[iter, i - 1] = k++;
                 }
