@@ -8,10 +8,6 @@ namespace HW2
 {
     internal class Task1
     {
-        public Task1()
-        {
-        }
-
         public int[,] VerticalSnake(int Row, int Column)
         {
             int[,] res = new int[Row, Column];
