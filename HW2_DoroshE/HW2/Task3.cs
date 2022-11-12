@@ -8,14 +8,14 @@ namespace HW2
 {//Є питання до проєктування. Поясню усно
     internal class Task3
     {
-        public bool HaveThroughHole(int[,,] cube)
+        public static bool HaveThroughHole(int[,,] cube)
         {
             if (HaveHorizontalThroughHole(cube) || HaveVerticalThroughHole(cube)) { return true; }
 
             return false;
         }
 
-        public bool HaveHorizontalThroughHole(int[,,] cube)
+        public static bool HaveHorizontalThroughHole(int[,,] cube)
         {
             int currentHoletLength = 0;
 
@@ -88,7 +88,7 @@ namespace HW2
             return false;
         }
 
-        public bool HaveVerticalThroughHole(int[,,] cube)
+        public static bool HaveVerticalThroughHole(int[,,] cube)
         {
             int neededLength = cube.GetLength(2);
 
@@ -158,7 +158,7 @@ namespace HW2
             return false;
         }
 
-        public int[,,] CreatingCube(int n)
+        public static int[,,] CreatingCube(int n)
         {
             int[,,] cube = new int[n, n, n];
 
@@ -178,7 +178,7 @@ namespace HW2
             return cube;
         }
 
-        public void Print(int[,,] cube)
+        public static void Print(int[,,] cube)
         {
             Console.WriteLine("From top to bottom.");
 

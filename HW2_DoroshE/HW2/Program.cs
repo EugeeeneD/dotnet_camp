@@ -48,9 +48,9 @@ Task3 task3Obj = new Task3();
 /*Console.WriteLine(task3Obj.HaveThroughHole(cube1));*/
 /*Console.WriteLine(task3Obj.HaveThroughHole(cube2));*/
 
-var cube = task3Obj.CreatingCube(3);
+var cube = Task3.CreatingCube(3);
 
-task3Obj.Print(cube);
+Task3.Print(cube);
 
-Console.WriteLine(task3Obj.HaveThroughHole(cube));
+Console.WriteLine(Task3.HaveThroughHole(cube));
 
