@@ -67,9 +67,9 @@ namespace HW6
             temp.RemoveAt(temp.Count - 1);
 
             string newPath = "";
+
             temp.ForEach(x => newPath += x + "\\");
             newPath += $"{year}-{quarter}.txt";
-
 
             var str = FileHandler.FileReader(newPath);
 
@@ -82,22 +82,16 @@ namespace HW6
 
                 if (IsAlreadyInDict(dict, person))
                 {
-                    if (!DoesListContainsDateIndicator(dict[FindPersonInDict(dict, person)], info)) { dict[FindPersonInDict(dict, person)].Add(info); Console.WriteLine(info.Indicator); }
+                    if (!DoesListContainsDateIndicator(dict, person, info)) { dict[FindPersonInDict(dict, person)].Add(info); }
                 }
             }
-
-/*            foreach (var item in dict)
-            {
-                Console.WriteLine($"{item.Key.LastName}");
-                item.Value.ForEach(x => Console.Write(x.Date));
-            }*/
 
             return true;
         }
 
-        public static bool DoesListContainsDateIndicator(List<DateIndicator> list, DateIndicator info)
+        public static bool DoesListContainsDateIndicator(Dictionary<AddressLastName, List<DateIndicator>> dict, AddressLastName person, DateIndicator info)
         {
-            foreach (var item in list)
+            foreach (var item in dict[FindPersonInDict(dict, person)])
             {
                 if(item.Equals(info)) { return false; }
             }

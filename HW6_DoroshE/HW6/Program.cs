@@ -11,14 +11,21 @@ electricity.FillDict();
 
 /*Console.WriteLine(electricity.PersonWithBiggestArrears());*/
 
+/*foreach (var item in electricity.ExpensesPerMonth())
+{
+    Console.WriteLine($"{item.Key.Room} - {item.Key.Address} - {item.Key.LastName}");
+    item.Value.ForEach(x => Console.Write($"{x} | "));
+    Console.WriteLine("\n");
+}*/
+
 // For this change quarter to 4
 /*Console.WriteLine(electricity.ApartmentsWereNoElectricityWasUsed()[0]);*/
 
+AddressLastName PinkMan = new AddressLastName() { Address = "St.Green 7", LastName = "PinkMan", Room = 1 };
 
-// not working properly yet
-/*AddressLastName morgentau = new AddressLastName() { Address = "Alexander platz 41/22", LastName = "Morgentau", Room = 25 };
+/*electricity.ExpensesForExactClientInOrder(PinkMan).ForEach(x => Console.WriteLine(x));*/
 
-electricity.ExpensesForExactClient(morgentau).ForEach(x => Console.WriteLine(x));*/
+/*Console.WriteLine(electricity.ExpensesForExactClientAndMonth(PinkMan, 2));*/
 
 /*electricity.DaysTillNow();*/
 

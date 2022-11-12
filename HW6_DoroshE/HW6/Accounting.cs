@@ -82,13 +82,13 @@ namespace HW6
 
             foreach (var item in dataInDict)
             {
-                item.Value.OrderBy(x => x.Date);
+                var personReport = item.Value.OrderBy(x => x.Date).ToList();
 
                 List<double> arrears = new List<double>();
 
-                for (int i = 1; i < item.Value.Count; i++)
+                for (int i = 1; i < personReport.Count; i++)
                 {
-                    arrears.Add((item.Value[i].Indicator - item.Value[i - 1].Indicator) * _priceOfKilowatt);
+                    arrears.Add(Math.Round((personReport[i].Indicator - personReport[i - 1].Indicator) * _priceOfKilowatt, 2));
                 }
 
                 res.Add(item.Key, arrears);
@@ -97,34 +97,30 @@ namespace HW6
             return res;
         }
 
-        // not working properly yet
-        /*        public List<double> ExpensesForExactClient(AddressLastName person)
-                {
-                    List<double> res = new List<double>();
+        public List<double> ExpensesForExactClientInOrder(AddressLastName person)
+        {
+            List<double> res = new List<double>();
 
-                    DataManager.GetLastMonthPreviousQuarter(dataInDict, _year, _quarter, dataFile);
+            DataManager.GetLastMonthPreviousQuarter(dataInDict, _year, _quarter, dataFile);
 
-                    var personReport = dataInDict[DataManager.FindPersonInDict(dataInDict, person)];
+            var personReport = dataInDict[DataManager.FindPersonInDict(dataInDict, person)].OrderBy(x => x.Date).ToList();
 
-                    personReport.OrderBy(x => x.Date);
+            for (int i = 1; i < personReport.Count; i++)
+            {
+                res.Add(Math.Round((personReport[i].Indicator - personReport[i - 1].Indicator) * _priceOfKilowatt, 2));
+            }
 
-                    for (int i = 1; i < personReport.Count; i++)
-                    {
-                        res.Add((personReport[i].Indicator - personReport[i - 1].Indicator) * _priceOfKilowatt);
-                        Console.WriteLine((personReport[i].Indicator - personReport[i - 1].Indicator) * _priceOfKilowatt);
-                    }
+            return res;
+        }
 
-                    return res;
-                }
+        public double ExpensesForExactClientAndMonth(AddressLastName person, int monthOfQuarter)
+        {
+            if (monthOfQuarter < 0 || monthOfQuarter > 3) { throw new ArgumentOutOfRangeException("In quarter only 3 month"); }
 
-                public double ExpensesForExactClientAndMonth(AddressLastName person, int monthOfQuarter)
-                {
-                    if (monthOfQuarter < 0 || monthOfQuarter > 3) { throw new ArgumentOutOfRangeException("In quarter only 3 month"); }
+            var res = ExpensesForExactClientInOrder(person);
 
-                    var res = ExpensesPerMonth();
-
-                    return res[DataManager.FindPersonInDict(dataInDict, person)][monthOfQuarter];
-                }*/
+            return res[monthOfQuarter];
+        }
 
         public bool DaysTillNow()
         {
