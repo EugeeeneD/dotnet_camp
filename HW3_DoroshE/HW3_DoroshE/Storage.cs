@@ -115,7 +115,7 @@ namespace HW3_DoroshE
             }
             return false;
         }
-
+// метод тут лишній. Прив'язка до консолі!!!!
         public void PrintAllInfo()
         {
             foreach (var item in _storage)
@@ -199,7 +199,7 @@ namespace HW3_DoroshE
             }
             return true;
         }
-
+// Не властивий метод
         public Product CreatingProduct()
         {
             string name;
