@@ -26,10 +26,10 @@ namespace HW3_DoroshE
         private Categories _category;
         private MeatTypes _meatType;
 
-        public Meat()
+        public Meat()//: base()
         {
         }
-
+// не правильне відчуття виклику базового класу. Поясню усно.
         public Meat(Product product, Categories category, MeatTypes meatType) : base(product)
         {
             Category = category;
