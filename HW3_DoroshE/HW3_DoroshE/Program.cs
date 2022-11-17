@@ -38,7 +38,8 @@ Console.WriteLine($"After changing prices:\n{storage}");
 Console.WriteLine("----------------------------\n");
 
 // finding all meat product
-Console.WriteLine("All meat products: \n");
+Console.WriteLine("All meat products: \n", Console.ForegroundColor = ConsoleColor.Green);
+Console.ResetColor();
 foreach (var item in storage.FindMeatProducts())
 {
     Console.WriteLine(item);
@@ -57,9 +58,12 @@ Console.WriteLine("----------------------------\n");
 storage2.GetProductsFromUser();
 storage2.PrintAllInfo();*/
 
-Console.WriteLine("----------------------------\n");
-Console.WriteLine("HW5:\n");
-Console.WriteLine("Before sorting:\n");
+Console.WriteLine("----------------------------\n", Console.ForegroundColor = ConsoleColor.Green);
+Console.ResetColor();
+Console.WriteLine("HW5:\n", Console.ForegroundColor = ConsoleColor.Green);
+Console.ResetColor();
+Console.WriteLine("Before sorting:\n", Console.ForegroundColor = ConsoleColor.Green);
+Console.ResetColor();
 Console.WriteLine(storage);
 
 // SortBy can compare only by numbers
@@ -71,3 +75,46 @@ Console.WriteLine(storage);
 
 Console.WriteLine("\nAfter sorting by name:\n");
 Console.WriteLine(storage.SortByName());
+
+// hw7
+
+Console.WriteLine("-------------- HW7 --------------");
+
+Product apple = new Product() { Name = "Apple", Weight = 87, WeightUnit = Product.WeightUnits.GRAMM, Price = 7, Currency = Product.Currencies.UAH };
+
+Dictionary<Product, int> tempDictionary = new Dictionary<Product, int>()
+{
+    [pork] = 3,
+    [yougurt] = 10,
+    [kefir] = 9,
+    [apple] = 25
+};
+
+Storage storage2 = new Storage(tempDictionary);
+
+Console.WriteLine(storage2);
+Console.WriteLine(storage);
+
+// task 1 a
+Console.WriteLine("\nProducts from first storage, that not in second one.\n--------------", Console.ForegroundColor = ConsoleColor.Green);
+Console.ResetColor();
+foreach (var item in Storage.LeftJoinStorage(storage2, storage))
+{
+    Console.WriteLine(item);
+}
+
+// task 1 b
+Console.WriteLine("\nAll products from both storages.\n--------------", Console.ForegroundColor = ConsoleColor.Green);
+Console.ResetColor();
+foreach (var item in Storage.AllProductsFromBothStorage(storage2, storage))
+{
+    Console.WriteLine(item);
+}
+
+// task 1 c
+Console.WriteLine("\nOn both storages.\n--------------", Console.ForegroundColor = ConsoleColor.Green);
+Console.ResetColor();
+foreach (var item in Storage.OnBothStorage(storage2, storage))
+{
+    Console.WriteLine(item);
+}

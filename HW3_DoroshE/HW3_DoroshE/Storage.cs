@@ -322,5 +322,62 @@ namespace HW3_DoroshE
 
             return new Storage(sortedStorage);
         }
+
+        // hw7
+
+        // num shows which type of join should this method return
+        // 0 - left join, 1 - right, 2 - inner
+        public void storageComparer(Storage storageOut, int num)
+        {
+            if (num > 2 || num < 0)
+            {
+                Console.WriteLine("Incorrect join type in num.");
+                throw new ArgumentOutOfRangeException("Num could be only 0, 1, 2.");
+            }
+
+            switch (num)
+            {
+                //left
+                case 0:
+
+                    break;
+
+                case 1:
+
+                    break;
+
+                case 2:
+
+                    break;
+            }
+        }
+
+        public static HashSet<Product> LeftJoinStorage(Storage storageLeft, Storage storageRight)
+        {
+            var productsFromLeftStorage = storageLeft._storage.Keys.ToHashSet();
+            var productsFromRightStorage = storageRight._storage.Keys.ToHashSet();
+
+            return productsFromLeftStorage.Where(x => !productsFromRightStorage.Contains(x)).ToHashSet();
+        }
+
+        public static HashSet<Product> AllProductsFromBothStorage(Storage storageLeft, Storage storageRight)
+        {
+            var productsFromLeftStorage = storageLeft._storage.Keys.ToHashSet();
+            var productsFromRightStorage = storageRight._storage.Keys.ToHashSet();
+
+            productsFromRightStorage.UnionWith(productsFromLeftStorage);
+
+            return productsFromRightStorage;
+        }
+
+        public static HashSet<Product> OnBothStorage(Storage storageLeft, Storage storageRight)
+        {
+            var productsFromLeftStorage = storageLeft._storage.Keys.ToHashSet();
+            var productsFromRightStorage = storageRight._storage.Keys.ToHashSet();
+
+            productsFromLeftStorage.IntersectWith(productsFromRightStorage);
+
+            return productsFromLeftStorage;
+        }
     }
 }
