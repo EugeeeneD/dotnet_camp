@@ -9,6 +9,7 @@ namespace HW5
     public class Wrapper
     {
         private List<int> _arr;
+        // Не варто робити полем. Це лише результат тільки одного з методів.
         private Dictionary<int, int> _frequencyTable;
         private int _arrLength;
         private int _lowerBracket;
@@ -16,6 +17,7 @@ namespace HW5
 
         public Wrapper()
         {
+            // не ініціалізоване поле!!!!!!
         }
 
         public Wrapper(int arrLength, int lowerBracket, int UpperBracket)
@@ -62,7 +64,7 @@ namespace HW5
 
             return true;
         }
-
+// Навіщо булівський результат?
         public bool GetFrequencyTable()
         {
             foreach (int item in _arr.Distinct())
@@ -87,7 +89,7 @@ namespace HW5
             bool isPrime = true;
 
             if (n < 2) { return false; }
-
+// Можна скоротити цикл
             for (int i = 2; i < n; i++)
             {
                 if(n % i == 0) { isPrime = false; }
@@ -96,7 +98,7 @@ namespace HW5
         }
 
         public Dictionary<int, List<int>> GetSequenceOfPrimeNumbers()
-        {
+        {// Не найкращий варіант подавати результат через словник.
             Dictionary<int, List<int>> res = new Dictionary<int, List<int>>();
 
             int start = 0;
