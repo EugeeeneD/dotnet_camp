@@ -7,7 +7,8 @@ using System.IO;
 using HW6.models;
 
 namespace HW6
-{
+{// закручене читання з файлу. Можна простіше
+    // Не побачила врахування культури.
     public class Accounting
     {
         const string folderWithReports = "F:\\sigma_dotnet_camp\\HW6_DoroshE\\HW6\\data\\reports";
