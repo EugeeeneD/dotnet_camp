@@ -91,7 +91,19 @@ namespace HW3_DoroshE
 
             foreach (var item in _storage.Keys)
             {
-                if (item.Name == product.Name) { return item; }
+                if (item.Name.ToLower().Contains(product.Name.ToLower())) { return item; }
+            }
+            return null;
+        }
+
+        public Product FindItem(string productName)
+        {
+            if (IsOnStorage(productName))
+            {
+                foreach (var item in _storage.Keys)
+                {
+                    if (item.Name.ToLower().Contains(productName.ToLower())) { return item; }
+                }
             }
             return null;
         }
@@ -109,13 +121,23 @@ namespace HW3_DoroshE
 
         public bool IsOnStorage(Product product)
         {
+            if (product == null) { return false; }
             foreach (var item in _storage.Keys)
             {
-                if (item.Name == product.Name) { return true; }
+                if (item.Name.ToLower().Contains(product.Name.ToLower())) { return true; }
             }
             return false;
         }
-// метод тут лишній. Прив'язка до консолі!!!!
+
+        public bool IsOnStorage(string productName)
+        {
+            foreach (var item in _storage.Keys)
+            {
+                if (item.Name.ToLower().Contains(productName.ToLower())) { return true; }
+            }
+            return false;
+        }
+        // метод тут лишній. Прив'язка до консолі!!!!
         public void PrintAllInfo()
         {
             foreach (var item in _storage)
@@ -378,6 +400,12 @@ namespace HW3_DoroshE
             productsFromLeftStorage.IntersectWith(productsFromRightStorage);
 
             return productsFromLeftStorage;
+        }
+
+        //hw8
+        public Product GetProductByName(string productName)
+        {
+            return FindItem(productName);
         }
     }
 }
