@@ -16,11 +16,11 @@ namespace HW7
 
             return "Card number is invalid.";
         }
-
+// в int не поміститься номер карти
         public static string CardValidation(int cardNum)
         {
             string card = cardNum.ToString();
-
+// повтор коду
             if (IsValidCardAE(card)) { return "American Express"; }
             else if (IsValidCardVisa(card)) { return "Visa"; }
             else if (IsValidCardMasterCard(card)) { return "MasterCard"; }
@@ -56,12 +56,12 @@ namespace HW7
         {
             int sum = 0;
             int cardLength = card.Length;
-
+//Цей цикл не працює. чому не перевірили?
             for (int i = cardLength - 1; i <= 0; i -= 2)
             {
                 sum += Convert.ToInt32(card[i]);
             }
-
+//Цей цикл не працює. чому не перевірили?
             for (int i = cardLength - 2; i <= 0; i -= 2)
             {
                 int num = Convert.ToInt32(card[i]) * 2;
