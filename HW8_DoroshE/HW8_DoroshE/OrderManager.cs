@@ -89,6 +89,8 @@ namespace HW8_DoroshE
 
                                 replacingProducts.Remove(order.Key);
 
+                                // можна задовільнити якшо заюзати ше замінники
+
                                 foreach (var adjProduct in replacingProducts)
                                 {
                                     Product adjustedProduct = storage.GetProductByName(adjProduct);
