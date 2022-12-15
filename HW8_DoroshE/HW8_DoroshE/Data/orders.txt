@@ -1,0 +1,8 @@
+SausageCo,Chicken,5
+M&Ms,sweets,15
+PepsiCo,Pepsi,100
+PepsiCo,Mirinda,25
+Banana lmd,Bananas,200
+SausageCo,Pork,7
+MlecnaDolina ltd,Milk,10
+NoNameCompany, NoProduct, 10

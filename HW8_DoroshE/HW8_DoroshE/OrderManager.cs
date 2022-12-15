@@ -8,53 +8,15 @@ using System.Threading.Tasks;
 
 namespace HW8_DoroshE
 {
-    public static class OrderManager
+    public class OrderManager
     {
-        // не впевнений куда їх помістити
-        private static string pathToGetOrders;
-        private static string pathToWriteFailedOrder;
-        private static string pathToReplacingProducts;
+        //a
+        public delegate void Notify(string str);
+        public event Notify? FailedOrder;
 
-        public static string PathToGetOrders
+        public List<(string, string)> FulfilOrders(Storage storage, string pathToGetOrders, string pathToReplacingProducts)
         {
-            get
-            {
-                return pathToGetOrders;
-            }
-            set
-            {
-                if (File.Exists(value)) { pathToGetOrders = value; }
-            }
-        }
-        public static string PathToWriteFailedOrder
-        {
-            get
-            {
-                return pathToWriteFailedOrder;
-            }
-            set
-            {
-                pathToWriteFailedOrder = value;
-            }
-        }
-        public static string PathToReplacingProducts
-        {
-            get
-            {
-                return pathToReplacingProducts;
-            }
-            set
-            {
-                if (File.Exists(value)) { pathToReplacingProducts = value; }
-            }
-        }
-        delegate void WriteToFile(string str, string path);
-
-        //можна було простіше, але вже пізно
-        public static List<(string, string)> FulfilOrders(Storage storage)
-        {
-            WriteToFile writeFailedOrder = FileHandler.WriteToFile;
-
+            //product, (company, amount)
             Dictionary<string, List<(string, int)>> orders = OrdersHandler.ManageData(pathToGetOrders);
 
             //company, product name
@@ -66,66 +28,58 @@ namespace HW8_DoroshE
 
                 if (product != null)
                 {
+                    //total amount of product from all orders
                     int totalAmountOFProductInOrder = order.Value.Sum(x => x.Item2);
+
+                    //If product can solo fulfil all orders
                     if (storage[product] >= totalAmountOFProductInOrder)
                     {
                         doneOrders.AddRange(SuccessfullCompleteFullOrder(storage, order, product, totalAmountOFProductInOrder));
-                        storage[product] = totalAmountOFProductInOrder - storage[product];
                         continue;
                     }
                     else
-                    { 
-                        int currentAmountOfProduct = storage[product];
+                    {
+                        List<string>? replacingProducts = ReplacingManager.GetListOfReplaceable(order.Key, pathToReplacingProducts);
+                        //If there are no replacing products
+                        if (replacingProducts == null)
+                        {
+                            order.Value.ForEach(x => FailedOrder?.Invoke($"Failed order(No enough product and no replacing products): {order.Key} - {x.Item1} - {x.Item2};"));
+                            continue;
+                        }
+                        replacingProducts.Remove(order.Key);
+
+                        int currentAmountOfOriginProduct = storage[product];
+
+                        //Going through the loop and checking if we can do single order without replacing products
                         foreach (var company in order.Value)
                         {
-                            if (currentAmountOfProduct < company.Item2)
+                            if (currentAmountOfOriginProduct >= company.Item2)
                             {
-                                var replacingProducts = ReplacingManager.GetListOfReplaceable(order.Key);
-                                if (replacingProducts == null)
-                                {
-                                    writeFailedOrder(SingleFailedOrderString(company.Item1, order.Key, company.Item2), PathToWriteFailedOrder);
-                                    continue;
-                                }
-
-                                replacingProducts.Remove(order.Key);
-
-                                // можна задовільнити якшо заюзати ше замінники
-
-                                foreach (var adjProduct in replacingProducts)
-                                {
-                                    Product adjustedProduct = storage.GetProductByName(adjProduct);
-                                    if (adjustedProduct == null) { continue; }
-
-                                    int amountOfAdjustedProduct = currentAmountOfProduct + storage[adjustedProduct];
-
-                                    if (amountOfAdjustedProduct >= company.Item2)
-                                    {
-                                        doneOrders.Add((adjProduct, company.Item1));
-                                        storage[product] = 0;
-                                        storage[adjustedProduct] = amountOfAdjustedProduct - company.Item2;
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                currentAmountOfProduct -= company.Item2;
+                                currentAmountOfOriginProduct -= company.Item2;
                                 doneOrders.Add((order.Key, company.Item1));
+                                continue;
+                            }
+
+                            //Going through the loop and checking if we can do single order with replacing products
+                            if (ReplacingManager.ReplaceWithAdjustments(storage, company, product, replacingProducts, doneOrders, ref currentAmountOfOriginProduct) == false)
+                            {
+                                FailedOrder?.Invoke($"Failed order(No enough product and no enough replacing products): {order.Key} - {company.Item1} - {company.Item2};");
                             }
                         }
-                        storage[product] = currentAmountOfProduct;
+                        //f
+                        storage[product] = currentAmountOfOriginProduct;
                     }
                 }
                 else
                 {
-                    writeFailedOrder(FullFailedOrderString(order), PathToWriteFailedOrder);
+                    order.Value.ForEach(x => FailedOrder?.Invoke($"Failed order(No such product): {order.Key} - {x.Item1} - {x.Item2};"));
                 }
             }
-
             return doneOrders;
         }
 
-        public static List<(string, string)> SuccessfullCompleteFullOrder(Storage storage, KeyValuePair<string, List<(string, int)>> orderList, Product product, int totalAmountOFProductInOrder)
+        private List<(string, string)> SuccessfullCompleteFullOrder(Storage storage, KeyValuePair<string, 
+                                            List<(string, int)>> orderList, Product product, int totalAmountOFProductInOrder)
         {
             List<(string, string)> doneOrders = new();
 
@@ -136,22 +90,6 @@ namespace HW8_DoroshE
             }
 
             return doneOrders;
-        }
-
-        public static string FullFailedOrderString(KeyValuePair<string, List<(string, int)>> orderList)
-        {
-            StringBuilder str = new();
-            foreach (var item in orderList.Value)
-            {
-                str.AppendLine($"{item.Item1}, {orderList.Key}, {item.Item2}");
-            }
-            return str.ToString();
-        }
-
-        public static string SingleFailedOrderString(string company, string productName, int amount)
-        {
-            string str = $"{company}, {productName}, {amount}";
-            return str;
         }
     }
 }

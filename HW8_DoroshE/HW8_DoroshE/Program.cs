@@ -20,23 +20,31 @@ Storage storage = new Storage();
 
 Product[] products = { sweets, candys , pepsi , mirinda , bananas , apples , chicken , pork , milk };
 
-storage.AddNewProductToStorage(sweets, 10);
-storage.AddNewProductToStorage(candys, 6);
+//can fulfil solo
+storage.AddNewProductToStorage(sweets, 100);
+
+//cannot be done
 storage.AddNewProductToStorage(pepsi, 6);
 storage.AddNewProductToStorage(mirinda, 6);
+
+//can be fulfiled with replacing product
 storage.AddNewProductToStorage(bananas, 10);
-storage.AddNewProductToStorage(apples, 9);
+storage.AddNewProductToStorage(apples, 190);
+
+storage.AddNewProductToStorage(candys, 6);
 storage.AddNewProductToStorage(chicken, 6);
 storage.AddNewProductToStorage(pork, 6);
 storage.AddNewProductToStorage(milk, 6);
 
-OrderManager.PathToWriteFailedOrder = "F:\\sigma_dotnet_camp\\HW8_DoroshE\\HW8_DoroshE\\result.txt";
-OrderManager.PathToReplacingProducts = "F:\\sigma_dotnet_camp\\HW8_DoroshE\\HW8_DoroshE\\adjacentProducts.txt";
-OrderManager.PathToGetOrders = "F:\\sigma_dotnet_camp\\HW8_DoroshE\\HW8_DoroshE\\orders.txt";
+OrderManager bigOrder = new OrderManager();
+
+Subscribers.pathToWriteFailedOrder = "F:\\sigma_dotnet_camp\\HW8_DoroshE\\HW8_DoroshE\\Data\\result.txt";
+bigOrder.FailedOrder += Subscribers.WriteFailedOrder;
 
 Console.WriteLine(storage);
 
-var res = OrderManager.FulfilOrders(storage);
+var res = bigOrder.FulfilOrders(storage, "F:\\sigma_dotnet_camp\\HW8_DoroshE\\HW8_DoroshE\\Data\\orders.txt"
+                                            , "F:\\sigma_dotnet_camp\\HW8_DoroshE\\HW8_DoroshE\\Data\\adjacentProducts.txt");
 
 Console.WriteLine(storage);
 
@@ -45,3 +53,4 @@ foreach (var item in res)
 {
     Console.WriteLine(item.Item2 + " " + item.Item1);
 }
+

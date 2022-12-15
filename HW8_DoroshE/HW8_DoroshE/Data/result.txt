@@ -1,0 +1,5 @@
+Failed order(No enough product and no replacing products): pepsi - pepsico - 100;
+Failed order(No enough product and no replacing products): mirinda - pepsico - 25;
+Failed order(No enough product and no enough replacing products): pork - sausageco - 7;
+Failed order(No enough product and no replacing products): milk - mlecnadolina ltd - 10;
+Failed order(No such product):  noproduct - nonamecompany - 10;

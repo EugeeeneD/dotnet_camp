@@ -1,7 +1,0 @@
-M&Ms,sweets,15
-PepsiCo,Pepsi,100
-PepsiCo,Mirinda,25
-Banana lmd,Banana,200
-SausageCo,Chicken,5
-SausageCo,Pork,7
-MlecnaDolina ltd,Milk,10
