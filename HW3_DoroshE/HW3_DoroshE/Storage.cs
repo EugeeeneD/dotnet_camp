@@ -407,5 +407,16 @@ namespace HW3_DoroshE
         {
             return FindItem(productName);
         }
+        
+        //hw9
+        public Storage SortByPriceLast()
+        {
+            return Sort.SortStoragePivotHigh((Storage)this.MemberwiseClone());
+        }
+
+        public Storage SortByPriceFirst()
+        {
+            return Sort.SortStoragePivotLow((Storage)this.MemberwiseClone());
+        }
     }
 }

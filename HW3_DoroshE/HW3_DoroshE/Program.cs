@@ -66,7 +66,7 @@ Console.WriteLine("Before sorting:\n", Console.ForegroundColor = ConsoleColor.Gr
 Console.ResetColor();
 Console.WriteLine(storage);
 
-// SortBy can compare only by numbers
+/*// SortBy can compare only by numbers
 Console.WriteLine("\nAfter sorting by price:\n");
 Console.WriteLine(storage.SortBy(x => x.Key.Price));
 
@@ -117,4 +117,8 @@ Console.ResetColor();
 foreach (var item in Storage.OnBothStorage(storage2, storage))
 {
     Console.WriteLine(item);
-}
+}*/
+
+//HW9
+var i = storage.SortByPriceLast();
+Console.WriteLine(i);
