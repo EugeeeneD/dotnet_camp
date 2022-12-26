@@ -14,5 +14,10 @@ namespace HW8_DoroshE
         {
             FileHandler.WriteToFile(str, pathToWriteFailedOrder);
         }
+
+        public static void WriteFailedOrderConsole(string str)
+        {
+            global::System.Console.WriteLine(str);
+        }
     }
 }

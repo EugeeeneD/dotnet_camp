@@ -1,0 +1,2 @@
+6,7,userFromFile_1,55,0,0,1,0
+1,2,userFromFile_2,24,1,2,1

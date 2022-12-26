@@ -40,6 +40,7 @@ OrderManager bigOrder = new OrderManager();
 
 Subscribers.pathToWriteFailedOrder = "F:\\sigma_dotnet_camp\\HW8_DoroshE\\HW8_DoroshE\\Data\\result.txt";
 bigOrder.FailedOrder += Subscribers.WriteFailedOrder;
+bigOrder.FailedOrder += Subscribers.WriteFailedOrderConsole;
 
 Console.WriteLine(storage);
 
