@@ -13,6 +13,7 @@ namespace HW12.src.model
         private (int, int) _topLeft;
         private (int, int) _bottromRight;
         private Queue<User> _users;
+        //лишнє, можна було б просто 2 рази розписати довше, а не створювати змінну для цього
         private (double, double) _center;
         public bool isOpen;
         public (User, int)? currentUser;

@@ -63,7 +63,14 @@ namespace HW12.src.model
                 _y = value;
             }
         }
-        public bool Status { get => _status; }
+        public bool Status
+        {
+            get => _status;
+            set
+            {
+                _status = value;
+            }
+        }
         public int Age
         {
             get => _age;

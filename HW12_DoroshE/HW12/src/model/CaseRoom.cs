@@ -15,7 +15,29 @@ namespace HW12.src.model
         public int _caseWidth;
         public List<Case> cases;
         //customer, serving ended, case id
-        public List<(User, (int, int), int)> servedUsers; 
+        public List<(User, (int, int), int)> servedUsers;
+
+        //------------------------------------
+        private uint queueNorm = 6;
+        private bool queueNormFailed = false;
+
+        public uint QueueNorm
+        {
+            get
+            {
+                return queueNorm;
+            }
+            set
+            {
+                if (value >= (Math.Abs(bottromRightRoom.Item1 - topLeftRoom.Item1))) { throw new ArgumentOutOfRangeException("Queue norm is too high or too low."); }
+                queueNorm = value;
+            }
+        }
+
+        public delegate void Notify(int id);
+        public event Notify? OutOfNorm;
+
+        //------------------------------------
 
         public CaseRoom(int amountOfCases, int caseWidth, (int, int) topLeft, (int, int) bottromRight)
         {
@@ -52,9 +74,9 @@ namespace HW12.src.model
             List<Case> casesWithMinQueue = FindCasesWithMinQueue();
             try
             {
+                FileHandler.WriteToFile(newUser.ToString(), Environment.CurrentDirectory + "\\OAllUsers.txt");
                 if (casesWithMinQueue.Count == 1) { casesWithMinQueue[0].AddUser(newUser); }
                 else { newUser.GetCaseWithMinDistanceInbetween(casesWithMinQueue).AddUser(newUser); }
-                FileHandler.WriteToFile(newUser.ToString(), Environment.CurrentDirectory + "\\OAllUsers.txt");
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -68,9 +90,9 @@ namespace HW12.src.model
             List<Case> casesWithMinQueue = FindCasesWithMinQueue();
             try
             {
+                FileHandler.WriteToFile(user.ToString(), Environment.CurrentDirectory + "\\OAllUsers.txt");
                 if (casesWithMinQueue.Count == 1) { casesWithMinQueue[0].AddUser(user); }
                 else { user.GetCaseWithMinDistanceInbetween(casesWithMinQueue).AddUser(user); }
-                FileHandler.WriteToFile(user.ToString(), Environment.CurrentDirectory + "\\OAllUsers.txt");
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -120,6 +142,18 @@ namespace HW12.src.model
                 FileHandler.WriteToFile($"User: {user.Item1}, Serving started at: {user.Item2.Item1}, Serving ended at: {user.Item2.Item2}, Case id: {user.Item3}", path);
             }
             servedUsers.Clear();
+        }
+
+        //Якщо в решти черг будуть числа близьке до норми?
+        public void CheckQueuesForNorm()
+        {
+            foreach (var sCase in cases)
+            {
+                if (sCase.Users.Count > queueNorm)
+                {
+                    OutOfNorm?.Invoke(sCase.Id);
+                }
+            }
         }
 
         public void CloseRoom(string path)
