@@ -8,16 +8,18 @@ namespace HW9.src.Service
 {
     public class Split
     {
-        public static int SplitFile(string path)
+        public static int SplitFileAndSortArray(string path)
         {
             int countOfSplitedFiles = 0;
+
 
             using (StreamReader sr = new StreamReader(path))
             {
                 string str;
                 while ((str = sr.ReadLine()) != null)
                 {
-                    File.WriteAllText($"splited{countOfSplitedFiles}.txt", str);
+                    var sortedIntList = Converter.SortedIntListFromString(str);
+                    File.WriteAllText($"splited{countOfSplitedFiles}.txt", Converter.IntListToString(sortedIntList));
                     countOfSplitedFiles++;
                 }
             }

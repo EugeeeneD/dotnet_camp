@@ -2,8 +2,6 @@
 using HW12.src.service;
 using HW12.test;
 
-/*CaseTest.CaseTestConsole();*/
-
 CaseRoom room = new CaseRoom(3, 4, (0, 15), (15, 0));
 
 string path = Environment.CurrentDirectory + "\\users.txt";
@@ -18,15 +16,15 @@ while (time <= 100)
     //clients serving
     foreach (var singleCase in room.cases)
     {
+        singleCase.CaseNormChecker(room);
         singleCase.UserServing(room, time);
     }
 
-    //services
-    //vuhidna informasia
+    //Serverd users
     if (time % 3 == 0) { room.SaveServedUsers(Environment.CurrentDirectory + "\\OServedUsers.txt"); }
 
     //create new users
-    if (time % 10 == 0 ) 
+    if (time % 4 == 0)
     {
         if (time == 20)
         {
@@ -41,17 +39,16 @@ while (time <= 100)
     }
 
     //control passengers group
-    if (time % 10 == 0) { ControlPassengersGroup.WriteControlPassengersGroupToFile(room, time, Environment.CurrentDirectory + "\\OControlGroup.txt"); }
+    if (time % 5 == 0) { ControlPassengersGroup.WriteControlPassengersGroupToFile(room, time, Environment.CurrentDirectory + "\\OControlGroup.txt"); }
 
     //close 1 case
     if (time == 80)
     {
         room.cases[2].CloseCase(room);
-        Console.WriteLine(room);
     }
 
-    //write vuhidnu informasiu before closing
-    if (time == 100) { room.CloseRoom(Environment.CurrentDirectory + "\\OServedUsers.txt"); } 
+    //write Serverd users before closing
+    if (time == 100) { room.CloseRoom(Environment.CurrentDirectory + "\\OServedUsers.txt"); }
     time += 1;
 }
 

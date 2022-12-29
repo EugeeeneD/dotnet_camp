@@ -18,17 +18,6 @@ namespace HW12.src.model
         //true - urgent or vip, just more important
         private bool _status;
 
-        //just for methods testing
-        public User(double x, double y, string name, int age, bool status)
-        {
-            X = x;
-            Y = y;
-            _name = name;
-            _age = age;
-            _status = status;
-            tickets = new List<ITicket>();
-        }
-
         public User(double x, double y, string name, int age, bool status, List<ITicket> ticketsToBuy)
         {
             X = x;
@@ -81,13 +70,7 @@ namespace HW12.src.model
             }
         }
 
-        //nasho???
-        public int GetAmountOfTicket()
-        {
-            return tickets.Count;
-        }
-
-        //a
+        //task5 TODO
         public void ChangeCase(Case from, Case To)
         {
 

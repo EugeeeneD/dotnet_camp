@@ -1,116 +1,400 @@
-Case id: 0
-1. (10, 2,5) User1 - 58 - False; Time to get tickets: 17
 --------- time: 0 ---------
-Case id: 1
-1. (10, 7,5) User2 - 56 - True; Time to get tickets: 5
---------- time: 0 ---------
-Case id: 2
-1. (10, 12,5) User3 - 76 - True; Time to get tickets: 13
---------- time: 0 ---------
+Case id: 0 - True
+1. (10, 2,5) User4 - 67 - False; Time to get tickets: 15
+2. (9, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - True
+1. (10, 7,5) User2 - 31 - False; Time to get tickets: 0
+2. (9, 7,5) User3 - 33 - False; Time to get tickets: 14
+Case id: 2 - True
+1. (10, 12,5) User1 - 26 - True; Time to get tickets: 7
+2. (9, 12,5) User5 - 44 - False; Time to get tickets: 14
 
-Case id: 0
-1. (10, 2,5) User10 - 77 - False; Time to get tickets: 0
+--------- time: 5 ---------
+Case id: 0 - True
+1. (9, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - True
+1. (10, 7,5) User6 - 15 - False; Time to get tickets: 8
+2. (9, 7,5) User8 - 6 - False; Time to get tickets: 10
+Case id: 2 - True
+1. (10, 12,5) User7 - 16 - True; Time to get tickets: 0
+2. (9, 12,5) User5 - 44 - False; Time to get tickets: 14
+
 --------- time: 10 ---------
-Case id: 1
---------- time: 10 ---------
-Case id: 2
---------- time: 10 ---------
+Case id: 0 - True
+1. (10, 2,5) User13 - 79 - False; Time to get tickets: 0
+2. (9, 2,5) User15 - 59 - False; Time to get tickets: 15
+3. (8, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - True
+1. (10, 7,5) User17 - 66 - True; Time to get tickets: 0
+2. (9, 7,5) User14 - 80 - False; Time to get tickets: 0
+3. (8, 7,5) User6 - 15 - False; Time to get tickets: 8
+4. (7, 7,5) User8 - 6 - False; Time to get tickets: 10
+Case id: 2 - True
+1. (9, 12,5) User16 - 92 - False; Time to get tickets: 3
+2. (8, 12,5) User5 - 44 - False; Time to get tickets: 14
 
-Case id: 0
-1. (10, 2,5) userFromFile_2 - 24 - True; Time to get tickets: 12
+--------- time: 15 ---------
+Case id: 0 - True
+1. (10, 2,5) User21 - 47 - True; Time to get tickets: 17
+2. (9, 2,5) User13 - 79 - False; Time to get tickets: 0
+3. (8, 2,5) User15 - 59 - False; Time to get tickets: 15
+4. (7, 2,5) User20 - 58 - False; Time to get tickets: 6
+5. (6, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - True
+1. (10, 7,5) User17 - 66 - True; Time to get tickets: 0
+2. (9, 7,5) User14 - 80 - False; Time to get tickets: 0
+3. (8, 7,5) User22 - 57 - False; Time to get tickets: 19
+4. (7, 7,5) User6 - 15 - False; Time to get tickets: 8
+5. (6, 7,5) User8 - 6 - False; Time to get tickets: 10
+Case id: 2 - True
+1. (10, 12,5) User16 - 92 - False; Time to get tickets: 3
+2. (9, 12,5) User19 - 88 - False; Time to get tickets: 0
+3. (8, 12,5) User18 - 58 - False; Time to get tickets: 17
+4. (7, 12,5) User5 - 44 - False; Time to get tickets: 14
+
 --------- time: 20 ---------
-Case id: 1
-1. (10, 7,5) userFromFile_1 - 55 - False; Time to get tickets: 11
---------- time: 20 ---------
-Case id: 2
---------- time: 20 ---------
+Case id: 0 - True
+1. (10, 2,5) User27 - 94 - True; Time to get tickets: 5
+2. (9, 2,5) User13 - 79 - False; Time to get tickets: 0
+3. (8, 2,5) User15 - 59 - False; Time to get tickets: 15
+4. (7, 2,5) User20 - 58 - False; Time to get tickets: 6
+5. (6, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - True
+1. (10, 7,5) userFromFile_2 - 24 - True; Time to get tickets: 12
+2. (9, 7,5) userFromFile_1 - 55 - False; Time to get tickets: 11
+3. (8, 7,5) User28 - 35 - False; Time to get tickets: 12
+4. (7, 7,5) User6 - 15 - False; Time to get tickets: 8
+5. (6, 7,5) User8 - 6 - False; Time to get tickets: 10
+Case id: 2 - True
+1. (10, 12,5) User25 - 49 - True; Time to get tickets: 11
+2. (9, 12,5) User16 - 92 - False; Time to get tickets: 3
+3. (8, 12,5) User19 - 88 - False; Time to get tickets: 0
+4. (7, 12,5) User18 - 58 - False; Time to get tickets: 17
+5. (6, 12,5) User5 - 44 - False; Time to get tickets: 14
+6. (5, 12,5) User29 - 45 - False; Time to get tickets: 6
 
-Case id: 0
-1. (10, 2,5) User15 - 68 - False; Time to get tickets: 0
+--------- time: 25 ---------
+Case id: 0 - True
+1. (10, 2,5) User27 - 94 - True; Time to get tickets: 5
+2. (9, 2,5) User31 - 94 - False; Time to get tickets: 0
+3. (8, 2,5) User13 - 79 - False; Time to get tickets: 0
+4. (7, 2,5) User15 - 59 - False; Time to get tickets: 15
+5. (6, 2,5) User20 - 58 - False; Time to get tickets: 6
+6. (5, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - True
+1. (10, 7,5) userFromFile_2 - 24 - True; Time to get tickets: 12
+2. (9, 7,5) User30 - 95 - False; Time to get tickets: 8
+3. (8, 7,5) userFromFile_1 - 55 - False; Time to get tickets: 11
+4. (7, 7,5) User28 - 35 - False; Time to get tickets: 12
+5. (6, 7,5) User6 - 15 - False; Time to get tickets: 8
+6. (5, 7,5) User8 - 6 - False; Time to get tickets: 10
+Case id: 2 - True
+1. (10, 12,5) User33 - 4 - True; Time to get tickets: 12
+2. (9, 12,5) User16 - 92 - False; Time to get tickets: 3
+3. (8, 12,5) User19 - 88 - False; Time to get tickets: 0
+4. (7, 12,5) User18 - 58 - False; Time to get tickets: 17
+5. (6, 12,5) User29 - 45 - False; Time to get tickets: 6
+6. (5, 12,5) User5 - 44 - False; Time to get tickets: 14
+
 --------- time: 30 ---------
-Case id: 1
-1. (10, 7,5) User12 - 42 - False; Time to get tickets: 7
---------- time: 30 ---------
-Case id: 2
-1. (10, 12,5) User17 - 11 - True; Time to get tickets: 5
---------- time: 30 ---------
+Case id: 0 - False
+1. (10, 2,5) User27 - 94 - True; Time to get tickets: 5
+2. (9, 2,5) User40 - 12 - True; Time to get tickets: 0
+3. (8, 2,5) User31 - 94 - False; Time to get tickets: 0
+4. (7, 2,5) User13 - 79 - False; Time to get tickets: 0
+5. (6, 2,5) User15 - 59 - False; Time to get tickets: 15
+6. (5, 2,5) User20 - 58 - False; Time to get tickets: 6
+7. (4, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - False
+1. (10, 7,5) User38 - 84 - True; Time to get tickets: 8
+2. (9, 7,5) userFromFile_2 - 24 - True; Time to get tickets: 12
+3. (8, 7,5) User30 - 95 - False; Time to get tickets: 8
+4. (7, 7,5) userFromFile_1 - 55 - False; Time to get tickets: 11
+5. (6, 7,5) User28 - 35 - False; Time to get tickets: 12
+6. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+7. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+8. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+Case id: 2 - False
+1. (3, 12,5) User5 - 44 - False; Time to get tickets: 14
+2. (5, 12,5) User18 - 58 - False; Time to get tickets: 17
+3. (6, 12,5) User19 - 88 - False; Time to get tickets: 0
+4. (7, 12,5) User16 - 92 - False; Time to get tickets: 3
+5. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+6. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+7. (10, 12,5) User41 - 68 - True; Time to get tickets: 3
 
-Case id: 0
+--------- time: 35 ---------
+Case id: 0 - False
+1. (9, 2,5) User40 - 12 - True; Time to get tickets: 0
+2. (8, 2,5) User31 - 94 - False; Time to get tickets: 0
+3. (7, 2,5) User13 - 79 - False; Time to get tickets: 0
+4. (6, 2,5) User15 - 59 - False; Time to get tickets: 15
+5. (5, 2,5) User20 - 58 - False; Time to get tickets: 6
+6. (4, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - False
+1. (10, 7,5) User38 - 84 - True; Time to get tickets: 8
+2. (9, 7,5) userFromFile_2 - 24 - True; Time to get tickets: 12
+3. (8, 7,5) User30 - 95 - False; Time to get tickets: 8
+4. (7, 7,5) userFromFile_1 - 55 - False; Time to get tickets: 11
+5. (6, 7,5) User28 - 35 - False; Time to get tickets: 12
+6. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+7. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+8. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+Case id: 2 - False
+1. (5, 12,5) User18 - 58 - False; Time to get tickets: 17
+2. (6, 12,5) User19 - 88 - False; Time to get tickets: 0
+3. (7, 12,5) User16 - 92 - False; Time to get tickets: 3
+4. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+5. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+6. (10, 12,5) User41 - 68 - True; Time to get tickets: 3
+
 --------- time: 40 ---------
-Case id: 1
-1. (10, 7,5) User22 - 98 - True; Time to get tickets: 12
---------- time: 40 ---------
-Case id: 2
-1. (10, 12,5) User21 - 16 - True; Time to get tickets: 8
---------- time: 40 ---------
+Case id: 0 - False
+1. (6, 2,5) User15 - 59 - False; Time to get tickets: 15
+2. (5, 2,5) User20 - 58 - False; Time to get tickets: 6
+3. (4, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - False
+1. (9, 7,5) userFromFile_2 - 24 - True; Time to get tickets: 12
+2. (8, 7,5) User30 - 95 - False; Time to get tickets: 8
+3. (7, 7,5) userFromFile_1 - 55 - False; Time to get tickets: 11
+4. (6, 7,5) User28 - 35 - False; Time to get tickets: 12
+5. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+6. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+7. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+Case id: 2 - False
+1. (5, 12,5) User18 - 58 - False; Time to get tickets: 17
+2. (6, 12,5) User19 - 88 - False; Time to get tickets: 0
+3. (7, 12,5) User16 - 92 - False; Time to get tickets: 3
+4. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+5. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+6. (10, 12,5) User41 - 68 - True; Time to get tickets: 3
 
-Case id: 0
+--------- time: 45 ---------
+Case id: 0 - True
+1. (5, 2,5) User20 - 58 - False; Time to get tickets: 6
+2. (4, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - False
+1. (8, 7,5) User30 - 95 - False; Time to get tickets: 8
+2. (7, 7,5) userFromFile_1 - 55 - False; Time to get tickets: 11
+3. (6, 7,5) User28 - 35 - False; Time to get tickets: 12
+4. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+5. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+6. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+Case id: 2 - False
+1. (5, 12,5) User18 - 58 - False; Time to get tickets: 17
+2. (6, 12,5) User19 - 88 - False; Time to get tickets: 0
+3. (7, 12,5) User16 - 92 - False; Time to get tickets: 3
+4. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+5. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+6. (10, 12,5) User41 - 68 - True; Time to get tickets: 3
+
 --------- time: 50 ---------
-Case id: 1
---------- time: 50 ---------
-Case id: 2
-1. (10, 12,5) User25 - 93 - True; Time to get tickets: 6
---------- time: 50 ---------
+Case id: 0 - True
+1. (5, 2,5) User20 - 58 - False; Time to get tickets: 6
+2. (4, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - False
+1. (8, 7,5) User30 - 95 - False; Time to get tickets: 8
+2. (7, 7,5) userFromFile_1 - 55 - False; Time to get tickets: 11
+3. (6, 7,5) User28 - 35 - False; Time to get tickets: 12
+4. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+5. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+6. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+Case id: 2 - False
+1. (6, 12,5) User19 - 88 - False; Time to get tickets: 0
+2. (7, 12,5) User16 - 92 - False; Time to get tickets: 3
+3. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+4. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+5. (10, 12,5) User41 - 68 - True; Time to get tickets: 3
 
-Case id: 0
-1. (10, 2,5) User30 - 77 - False; Time to get tickets: 10
+--------- time: 55 ---------
+Case id: 0 - True
+1. (5, 2,5) User20 - 58 - False; Time to get tickets: 6
+2. (4, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - False
+1. (8, 7,5) User30 - 95 - False; Time to get tickets: 8
+2. (7, 7,5) userFromFile_1 - 55 - False; Time to get tickets: 11
+3. (6, 7,5) User28 - 35 - False; Time to get tickets: 12
+4. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+5. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+6. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+Case id: 2 - False
+1. (6, 12,5) User19 - 88 - False; Time to get tickets: 0
+2. (7, 12,5) User16 - 92 - False; Time to get tickets: 3
+3. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+4. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+5. (10, 12,5) User41 - 68 - True; Time to get tickets: 3
+
 --------- time: 60 ---------
-Case id: 1
-1. (10, 7,5) User34 - 44 - True; Time to get tickets: 0
-2. (9, 7,5) User31 - 51 - False; Time to get tickets: 8
---------- time: 60 ---------
-Case id: 2
-1. (10, 12,5) User35 - 72 - False; Time to get tickets: 6
-2. (9, 12,5) User33 - 48 - False; Time to get tickets: 0
---------- time: 60 ---------
+Case id: 0 - True
+1. (4, 2,5) User0 - 24 - False; Time to get tickets: 10
+Case id: 1 - False
+1. (7, 7,5) userFromFile_1 - 55 - False; Time to get tickets: 11
+2. (6, 7,5) User28 - 35 - False; Time to get tickets: 12
+3. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+4. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+5. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+Case id: 2 - False
+1. (6, 12,5) User19 - 88 - False; Time to get tickets: 0
+2. (7, 12,5) User16 - 92 - False; Time to get tickets: 3
+3. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+4. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+5. (10, 12,5) User41 - 68 - True; Time to get tickets: 3
 
-Case id: 0
+--------- time: 65 ---------
+Case id: 0 - True
+Case id: 1 - False
+1. (6, 7,5) User28 - 35 - False; Time to get tickets: 12
+2. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+3. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+4. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+Case id: 2 - False
+1. (7, 12,5) User16 - 92 - False; Time to get tickets: 3
+2. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+3. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+4. (10, 12,5) User41 - 68 - True; Time to get tickets: 3
+
 --------- time: 70 ---------
-Case id: 1
-1. (10, 7,5) User39 - 88 - False; Time to get tickets: 0
---------- time: 70 ---------
-Case id: 2
-1. (10, 12,5) User36 - 85 - False; Time to get tickets: 6
---------- time: 70 ---------
+Case id: 0 - True
+1. (10, 2,5) User98 - 87 - True; Time to get tickets: 0
+2. (9, 2,5) User96 - 22 - False; Time to get tickets: 6
+3. (8, 2,5) User99 - 32 - False; Time to get tickets: 3
+Case id: 1 - False
+1. (6, 7,5) User28 - 35 - False; Time to get tickets: 12
+2. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+3. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+4. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+Case id: 2 - True
+1. (8, 12,5) User36 - 29 - True; Time to get tickets: 10
+2. (7, 12,5) User33 - 4 - True; Time to get tickets: 12
 
-Case id: 0
-1. (10, 2,5) User46 - 75 - True; Time to get tickets: 14
-2. (9, 2,5) User44 - 9 - True; Time to get tickets: 10
---------- time: 80 ---------
-Case id: 1
-1. (10, 7,5) User45 - 80 - True; Time to get tickets: 21
-2. (9, 7,5) User47 - 50 - False; Time to get tickets: 11
---------- time: 80 ---------
-Case id: 2
-1. (10, 12,5) User42 - 39 - False; Time to get tickets: 0
---------- time: 80 ---------
+--------- time: 75 ---------
+Case id: 0 - True
+1. (9, 2,5) User99 - 32 - False; Time to get tickets: 3
+2. (8, 2,5) User96 - 22 - False; Time to get tickets: 6
+Case id: 1 - False
+1. (6, 7,5) User28 - 35 - False; Time to get tickets: 12
+2. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+3. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+4. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+Case id: 2 - True
+1. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+2. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+3. (7, 12,5) User107 - 76 - False; Time to get tickets: 0
 
-Case id: 0
-1. (10, 2,5) User44 - 9 - True; Time to get tickets: 10
-2. (9, 2,5) User51 - 70 - False; Time to get tickets: 15
---------- time: 90 ---------
-Case id: 1
-1. (10, 7,5) User49 - 68 - False; Time to get tickets: 17
-2. (9, 7,5) User47 - 50 - False; Time to get tickets: 11
---------- time: 90 ---------
-Case id: 2
-1. (10, 12,5) User52 - 66 - True; Time to get tickets: 7
-2. (9, 12,5) User42 - 39 - False; Time to get tickets: 0
-3. (9, 12,5) User42 - 39 - False; Time to get tickets: 0
---------- time: 90 ---------
+--------- time: 80 ---------
+Case id: 0 - True
+1. (10, 2,5) User108 - 89 - True; Time to get tickets: 11
+2. (9, 2,5) User113 - 3 - True; Time to get tickets: 3
+3. (8, 2,5) User99 - 32 - False; Time to get tickets: 3
+4. (7, 2,5) User109 - 28 - False; Time to get tickets: 12
+5. (6, 2,5) User96 - 22 - False; Time to get tickets: 6
+Case id: 1 - True
+1. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+2. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+3. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+4. (7, 7,5) User114 - 49 - False; Time to get tickets: 12
+5. (6, 7,5) User117 - 25 - False; Time to get tickets: 15
+Case id: 2 - True
+1. (10, 12,5) User119 - 42 - True; Time to get tickets: 7
+2. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+3. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+4. (7, 12,5) User107 - 76 - False; Time to get tickets: 0
+5. (6, 12,5) User111 - 44 - False; Time to get tickets: 15
+6. (5, 12,5) User118 - 26 - False; Time to get tickets: 9
 
-Case id: 0
-1. (10, 2,5) User51 - 70 - False; Time to get tickets: 15
-2. (9, 2,5) User54 - 60 - False; Time to get tickets: 0
+--------- time: 85 ---------
+Case id: 0 - False
+1. (10, 12,5) User119 - 42 - True; Time to get tickets: 7
+2. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+3. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+4. (9, 2,5) User113 - 3 - True; Time to get tickets: 3
+5. (8, 2,5) User99 - 32 - False; Time to get tickets: 3
+6. (7, 2,5) User109 - 28 - False; Time to get tickets: 12
+7. (6, 2,5) User96 - 22 - False; Time to get tickets: 6
+Case id: 1 - False
+1. (7, 12,5) User107 - 76 - False; Time to get tickets: 0
+2. (7, 7,5) User114 - 49 - False; Time to get tickets: 12
+3. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+4. (6, 12,5) User111 - 44 - False; Time to get tickets: 15
+5. (5, 12,5) User118 - 26 - False; Time to get tickets: 9
+6. (6, 7,5) User117 - 25 - False; Time to get tickets: 15
+7. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+8. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+Case id: 2 - True
+1. (10, 12,5) User119 - 42 - True; Time to get tickets: 7
+2. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+3. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+4. (7, 12,5) User107 - 76 - False; Time to get tickets: 0
+5. (6, 12,5) User111 - 44 - False; Time to get tickets: 15
+6. (5, 12,5) User118 - 26 - False; Time to get tickets: 9
+
+--------- time: 90 ---------
+Case id: 0 - False
+1. (10, 12,5) User119 - 42 - True; Time to get tickets: 7
+2. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+3. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+4. (9, 2,5) User113 - 3 - True; Time to get tickets: 3
+5. (8, 2,5) User99 - 32 - False; Time to get tickets: 3
+6. (7, 2,5) User109 - 28 - False; Time to get tickets: 12
+7. (6, 2,5) User96 - 22 - False; Time to get tickets: 6
+Case id: 1 - False
+1. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+2. (6, 12,5) User111 - 44 - False; Time to get tickets: 15
+3. (5, 12,5) User118 - 26 - False; Time to get tickets: 9
+4. (6, 7,5) User117 - 25 - False; Time to get tickets: 15
+5. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+6. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+Case id: 2 - True
+1. (10, 12,5) User119 - 42 - True; Time to get tickets: 7
+2. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+3. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+4. (7, 12,5) User107 - 76 - False; Time to get tickets: 0
+5. (6, 12,5) User111 - 44 - False; Time to get tickets: 15
+6. (5, 12,5) User118 - 26 - False; Time to get tickets: 9
+
+--------- time: 95 ---------
+Case id: 0 - False
+1. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+2. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+3. (9, 2,5) User113 - 3 - True; Time to get tickets: 3
+4. (8, 2,5) User99 - 32 - False; Time to get tickets: 3
+5. (7, 2,5) User109 - 28 - False; Time to get tickets: 12
+6. (6, 2,5) User96 - 22 - False; Time to get tickets: 6
+Case id: 1 - False
+1. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+2. (6, 12,5) User111 - 44 - False; Time to get tickets: 15
+3. (5, 12,5) User118 - 26 - False; Time to get tickets: 9
+4. (6, 7,5) User117 - 25 - False; Time to get tickets: 15
+5. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+6. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+Case id: 2 - True
+1. (10, 12,5) User119 - 42 - True; Time to get tickets: 7
+2. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+3. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+4. (7, 12,5) User107 - 76 - False; Time to get tickets: 0
+5. (6, 12,5) User111 - 44 - False; Time to get tickets: 15
+6. (5, 12,5) User118 - 26 - False; Time to get tickets: 9
+
 --------- time: 100 ---------
-Case id: 1
-1. (10, 7,5) User56 - 39 - True; Time to get tickets: 0
-2. (9, 7,5) User49 - 68 - False; Time to get tickets: 17
-3. (8, 7,5) User47 - 50 - False; Time to get tickets: 11
---------- time: 100 ---------
-Case id: 2
-1. (10, 12,5) User52 - 66 - True; Time to get tickets: 7
-2. (9, 12,5) User42 - 39 - False; Time to get tickets: 0
-3. (9, 12,5) User42 - 39 - False; Time to get tickets: 0
---------- time: 100 ---------
+Case id: 0 - False
+1. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+2. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+3. (9, 2,5) User113 - 3 - True; Time to get tickets: 3
+4. (8, 2,5) User99 - 32 - False; Time to get tickets: 3
+5. (7, 2,5) User109 - 28 - False; Time to get tickets: 12
+6. (6, 2,5) User96 - 22 - False; Time to get tickets: 6
+Case id: 1 - False
+1. (3, 7,5) User29 - 45 - False; Time to get tickets: 6
+2. (6, 12,5) User111 - 44 - False; Time to get tickets: 15
+3. (5, 12,5) User118 - 26 - False; Time to get tickets: 9
+4. (6, 7,5) User117 - 25 - False; Time to get tickets: 15
+5. (5, 7,5) User6 - 15 - False; Time to get tickets: 8
+6. (4, 7,5) User8 - 6 - False; Time to get tickets: 10
+Case id: 2 - True
+1. (10, 12,5) User119 - 42 - True; Time to get tickets: 7
+2. (9, 12,5) User36 - 29 - True; Time to get tickets: 10
+3. (8, 12,5) User33 - 4 - True; Time to get tickets: 12
+4. (7, 12,5) User107 - 76 - False; Time to get tickets: 0
+5. (6, 12,5) User111 - 44 - False; Time to get tickets: 15
+6. (5, 12,5) User118 - 26 - False; Time to get tickets: 9
 

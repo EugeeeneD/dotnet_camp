@@ -8,7 +8,7 @@ namespace HW9.src.Sort
 {
     public class Sort
     {
-        public static void MergeSort(List<int> list)
+        public static void KMergeSort(List<int> list)
         {
             Sorting(list, 0, list.Count);
         }

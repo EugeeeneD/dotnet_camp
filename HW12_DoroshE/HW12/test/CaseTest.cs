@@ -16,16 +16,16 @@ namespace HW12.test
             //testing each method
             Console.WriteLine("\n------------ Cases test ------------\n Checking if sorting works right:\n");
             List<User> users = new List<User>();
-            Case cs = new Case(1, (8, 12), (12, 0));
+            Case cs = new Case(1, (8, 12), (12, 0), 6);
 
-            cs.AddUser(new User(2, 1, "1", 55, true));
-            cs.AddUser(new User(5, 2, "1", 49, false));
-            cs.AddUser(new User(4, 3, "1", 50, false));
-            cs.AddUser(new User(2, 4, "1", 50, true));
+            cs.AddUser(new User(2, 1, "1", 55, true, new List<ITicket>()));
+            cs.AddUser(new User(5, 2, "1", 49, false, new List<ITicket>()));
+            cs.AddUser(new User(4, 3, "1", 50, false, new List<ITicket>()));
+            cs.AddUser(new User(2, 4, "1", 50, true, new List<ITicket>()));
 
-            users.Add(new User(6, 2, "1", 49, false));
-            users.Add(new User(3, 4, "1", 50, true));
-            users.Add(new User(7, 3, "1", 45, false));
+            users.Add(new User(6, 2, "1", 49, false, new List<ITicket>()));
+            users.Add(new User(3, 4, "1", 50, true, new List<ITicket>()));
+            users.Add(new User(7, 3, "1", 45, false, new List<ITicket>()));
 
             cs.AddUsers(users);
             cs.SortQueue();
@@ -88,8 +88,10 @@ namespace HW12.test
 
             Console.WriteLine(room);
 
+            Console.WriteLine(room.GetUserAmountInRoom());
+
             Console.WriteLine("----------- Min distance to case -----------\n");
-            User newUser1 = new User(3, 7, "1", 50, true);
+            User newUser1 = new User(3, 7, "1", 50, true, new List<ITicket>());
             var closestCases = newUser1.GetCaseWithMinDistanceInbetween(room.cases);
             Console.WriteLine(closestCases);
 
@@ -99,7 +101,6 @@ namespace HW12.test
 
             Console.WriteLine("------------ Serving test -------------\n");
 
-            int time = 0;
             for (int i = 0; i < 15; i++)
             {
                 foreach (var queue in room.cases)

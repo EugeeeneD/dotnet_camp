@@ -15,5 +15,5 @@ List<int> a1 = new List<int>() { 3, 1, 2, 3,6, 7 };
 
 Sort.Merge(a1, a2).ForEach(x => Console.Write(x + " "));*/
 
-Sort.MergeSort(a1);
+Sort.KMergeSort(a1);
 a1.ForEach(x => Console.WriteLine(x));

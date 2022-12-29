@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HW12.src.service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace HW12.src.model
 {
     public class Case
     {
-        private int _id;
+        private readonly int _id;
         //(x ,y)
         private (int, int) _topLeft;
         private (int, int) _bottromRight;
@@ -18,10 +19,26 @@ namespace HW12.src.model
         public bool isOpen;
         public (User, int)? currentUser;
 
+        //------------------------------------
+
+        private readonly uint queueNorm;
+        private bool queueNormFailed = false;
+        private bool canGenerateUser;
+
+        public bool QueueNormFailed { get => queueNormFailed; set => queueNormFailed = value; }
+        public uint QueueNorm { get => queueNorm; }
+        public bool CanGenerateUser { get => canGenerateUser; }
+
+        public delegate void Notify(CaseRoom room, Case sCase);
+        public event Notify? OutOfNorm;
+
+        //------------------------------------
+
         public int Id { get => _id; }
         public (double, double) Center { get => _center; }
 
-        public Case(int id, (int, int) topLeft, (int, int) bottromRight)
+        //------------------------------------
+        public Case(int id, (int, int) topLeft, (int, int) bottromRight, uint norm)
         {
             currentUser = null;
             isOpen = true;
@@ -30,13 +47,18 @@ namespace HW12.src.model
             _bottromRight = bottromRight;
             _center = ((bottromRight.Item1 - topLeft.Item1) / 2.0 + topLeft.Item1, (topLeft.Item2 - bottromRight.Item2) / 2.0 + bottromRight.Item2);
             _users = new Queue<User>();
+
+            queueNorm = norm;
+            OutOfNorm += EventReaction.CloseCasesDueToOvernormQueue;
+            canGenerateUser = true;
         }
+        //------------------------------------
 
         public Queue<User> Users { get => _users; }
 
         public int GetUsersAmount()
         {
-            return _users.Count;
+            return Users.Count;
         }
 
         public void AddUsers(IEnumerable<User> newUsers)
@@ -88,9 +110,25 @@ namespace HW12.src.model
             _users.Dequeue();
         }
 
+        public void RemoveUser(User user)
+        {
+            var temp = Users.ToList();
+            temp.Remove(user);
+            temp.Reverse();
+            _users = new Queue<User>(temp);
+        }
+
+        public void RemoveUsers(IEnumerable<User> users)
+        {
+            List<User> temp = Users.ToList();
+            temp.RemoveAll(x => users.Contains(x));
+            temp.Reverse();
+            _users = new Queue<User>(temp);
+        }
+
         public void UserServing(CaseRoom room, int currentTime)
         {
-            if (isOpen != false)
+            if (isOpen == true)
             {
                 if (currentUser.HasValue)
                 {
@@ -145,7 +183,7 @@ namespace HW12.src.model
 
         public void SetCurrentUserWithTime(int currentTime)
         {
-            var cUser = GetCurrentUser();
+            var cUser = GetFirstInQueue();
             if (cUser != null)
             {
                 currentUser = (cUser, currentTime);
@@ -153,7 +191,8 @@ namespace HW12.src.model
             }
         }
 
-        public User GetCurrentUser()
+        //GetCurrentUser
+        public User GetFirstInQueue()
         {
             if (!_users.TryPeek(out User user)) { return null; }
             return user;
@@ -178,11 +217,35 @@ namespace HW12.src.model
             _users = new Queue<User>(temp);
         }
 
+
+        //------------------------------------------------------------------------------------------
+
+        public void CaseNormChecker(CaseRoom room)
+        {
+            if (GetUsersAmount() > queueNorm)
+            {
+                if (!queueNormFailed)
+                {
+                    OutOfNorm?.Invoke(room, this);
+                    queueNormFailed = true;
+                }
+                else { canGenerateUser = false; }
+            }
+            else if (GetUsersAmount() <= Math.Ceiling(QueueNorm / 2.0)) 
+            { 
+                canGenerateUser = true;
+            }
+        }
+
+        //------------------------------------------------------------------------------------------
+
+
         public void CloseAndClearCase()
         {
             isOpen = false;
             _users.Clear();
             currentUser = null;
+            queueNormFailed = false;
         }
 
         public override string ToString()

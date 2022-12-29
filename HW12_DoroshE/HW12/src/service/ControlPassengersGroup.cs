@@ -12,11 +12,12 @@ namespace HW12.src.service
         public static void WriteControlPassengersGroupToFile(CaseRoom room, int time, string path)
         {
             StringBuilder res = new();
+            res.AppendLine($"--------- time: {time} ---------");
 
             for (int i = 0; i < room.cases.Count; i++)
             {
                 var tempCasa = room.cases[i];
-                res.AppendLine($"Case id: {tempCasa.Id}");
+                res.AppendLine($"Case id: {tempCasa.Id} - {tempCasa.CanGenerateUser}");
 
                 int j = 1;
                 foreach (var user in tempCasa.Users)
@@ -25,7 +26,6 @@ namespace HW12.src.service
                     j++;
                 }
                 j = 1;
-                res.AppendLine($"--------- time: {time} ---------");
             }
 
             FileHandler.WriteToFile(res.ToString(), path);
