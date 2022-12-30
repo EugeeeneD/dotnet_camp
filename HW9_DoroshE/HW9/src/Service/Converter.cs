@@ -13,15 +13,7 @@ namespace HW9.src.Service
         {
             string str = File.ReadAllText(path);
 
-            List<int> res = str.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList().Select(x => Convert.ToInt32(x)).ToList<int>();
-            
-            return res;
-        }
-
-        public static List<int> SortedIntListFromString(string str)
-        {
-            List<int> res = str.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList().Select(x => Convert.ToInt32(x)).ToList<int>();
-            res.Sort();
+            List<int> res = str.Split(" ", StringSplitOptions.TrimEntries).ToList().SkipLast(1).Select(x => Convert.ToInt32(x)).ToList<int>();
             return res;
         }
 
@@ -34,6 +26,12 @@ namespace HW9.src.Service
             }
 
             return res.ToString();
+        }
+
+        public static List<int> StringToIntList(string str)
+        {
+            List<int> res = str.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList().Select(x => Convert.ToInt32(x)).ToList<int>();
+            return res;
         }
     }
 }

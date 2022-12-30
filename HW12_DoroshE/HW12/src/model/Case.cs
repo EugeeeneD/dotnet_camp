@@ -14,7 +14,6 @@ namespace HW12.src.model
         private (int, int) _topLeft;
         private (int, int) _bottromRight;
         private Queue<User> _users;
-        //лишнє, можна було б просто 2 рази розписати довше, а не створювати змінну для цього
         private (double, double) _center;
         public bool isOpen;
         public (User, int)? currentUser;
@@ -128,7 +127,7 @@ namespace HW12.src.model
 
         public void UserServing(CaseRoom room, int currentTime)
         {
-            if (isOpen == true)
+            if (isOpen)
             {
                 if (currentUser.HasValue)
                 {
@@ -155,30 +154,17 @@ namespace HW12.src.model
             if (Users.Count != 0) 
             {
                 var userList = Users.ToList();
-                var queuesWithMinUsersAmount = room.FindCasesWithMinQueue();
 
-                int amountOfUsersToAddToQueue = Convert.ToInt32(Math.Floor(userList.Count / queuesWithMinUsersAmount.Count * 1.0));
-                int start = 0;
-                int remainder = userList.Count % queuesWithMinUsersAmount.Count;
-                if (remainder == 0) 
+                foreach (var user in userList)
                 {
-                    //test
-                    foreach (var queue in queuesWithMinUsersAmount)
-                    {
-                        queue.AddUsers(userList.GetRange(start, amountOfUsersToAddToQueue));
-                        start += amountOfUsersToAddToQueue;
-                    }
+                    var queuesWithMinUsersAmount = room.FindCasesWithMinQueue(this);
+
+                    queuesWithMinUsersAmount[0].AddUser(user);
                 }
-                else
-                {
-                    foreach (var queue in queuesWithMinUsersAmount)
-                    {
-                        queue.AddUsers(userList.GetRange(start, amountOfUsersToAddToQueue + remainder));
-                        start += amountOfUsersToAddToQueue;
-                    }
-                }    
+                _users.Clear();
             }
             isOpen = false;
+            canGenerateUser = false;
         }
 
         public void SetCurrentUserWithTime(int currentTime)
