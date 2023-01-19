@@ -10,13 +10,18 @@ namespace ConsoleApp1
 {
     public class CRUD
     {
-        public void Select(string connectionString, string tableName)
+        public void Select(string connectionString)
         {
             using (SqlConnection con = new(connectionString))
             {
                 try
                 {
-                    SqlCommand cm = new($"SELECT * FROM {tableName}", con);
+                    SqlCommand cm = new($"SELECT * FROM Movies WHERE Name = @movieName;", con);
+                    Console.WriteLine("Enter movie name: ");
+
+                    string movie = Console.ReadLine();
+
+                    cm.Parameters.AddWithValue("@movieName", movie);
 
                     con.Open();
                     cm.ExecuteNonQuery();
@@ -41,13 +46,54 @@ namespace ConsoleApp1
             }
         }
 
-        public void Insert(string connectionString, string query)
+        public void SelectAll(string connectionString)
         {
             using (SqlConnection con = new(connectionString))
             {
                 try
                 {
-                    SqlCommand cm = new(query, con);
+                    SqlCommand cm = new($"SELECT * FROM Movies", con);
+
+                    con.Open();
+                    cm.ExecuteNonQuery();
+                    SqlDataReader dr = cm.ExecuteReader();
+
+                    List<string> columns = GetDataReaderColumnNames(dr);
+
+                    while (dr.Read())
+                    {
+                        foreach (string column in columns)
+                        {
+                            Console.Write($"{column}: {dr[$"{column}"]}\t");
+                        }
+                        Console.WriteLine();
+                    }
+                    dr.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Got an error, " + ex.Message);
+                }
+            }
+        }
+
+
+        public void Insert(string connectionString)
+        {
+            using (SqlConnection con = new(connectionString))
+            {
+                try
+                {
+                    SqlCommand cm = new("INSERT INTO Movies VALUES(NEWID(), @name, @description);", con);
+
+                    Console.WriteLine("Enter movie name: ");
+                    string name = Console.ReadLine();
+
+                    Console.WriteLine("Enter movie description: ");
+                    string description = Console.ReadLine();
+
+                    cm.Parameters.AddWithValue("@name", name);
+                    cm.Parameters.AddWithValue("@description", description);
 
                     con.Open();
                     cm.ExecuteNonQuery();
@@ -80,14 +126,21 @@ namespace ConsoleApp1
             }
         }
 
-        public void Delete(string connectionString, string table, string column, string value)
+        public void Delete(string connectionString)
         {
             using (SqlConnection con = new(connectionString))
             {
                 try
                 {
-                    string query = $"DELETE FROM {table} WHERE {column} = '{value}';";
+                    string query = $"DELETE FROM Movies WHERE Name = @movieName;";
+
+                    Console.WriteLine("Enter movie name which u want to delete: ");
+                    string movieName = Console.ReadLine();
+
                     SqlCommand cm = new(query, con);
+
+                    cm.Parameters.AddWithValue("@dataValue", movieName);
+
                     con.Open();
                     cm.ExecuteNonQuery();
 
