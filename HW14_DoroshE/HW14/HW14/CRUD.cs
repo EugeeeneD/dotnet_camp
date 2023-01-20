@@ -107,14 +107,52 @@ namespace ConsoleApp1
             }
         }
 
-        public void Update(string connectionString, string query)
+        public void Update(string connectionString)
         {
             using (SqlConnection con = new(connectionString))
             {
                 try
                 {
-                    SqlCommand cm = new(query, con);
+                    StringBuilder query = new("UPDATE Movies SET ");
+
+                    List<string> columns = null;
+
+                    try
+                    {
+                        SqlCommand cmd = new($"SELECT * FROM Movies", con);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        SqlDataReader dr = cmd.ExecuteReader();
+
+                        columns = GetDataReaderColumnNames(dr);
+                        con.Close();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Got an error, " + e.Message);
+                    }
+
                     con.Open();
+
+                    if (columns == null) { throw new ArgumentNullException("No columns in table, cannot update something."); }
+
+                    CompleteQuery(ref query, columns);
+
+                    Console.WriteLine("\nType by which column you to find row: ");
+                    columns.ForEach(x => Console.Write(x + " "));
+                    Console.WriteLine();
+                    string columnForWhere = Console.ReadLine();
+
+                    Console.WriteLine("Type value by which we can find row: ");
+                    string valueForWhere = Console.ReadLine();
+
+                    query.Append($"WHERE {columnForWhere} = {valueForWhere};");
+
+                    SqlCommand cm = new(query.ToString(), con);
+
+                    Console.WriteLine(cm.CommandText);
+
                     cm.ExecuteNonQuery();
 
                     Console.WriteLine("Successfully updated row.");
@@ -158,6 +196,30 @@ namespace ConsoleApp1
             for (int i = 0; i < rdr.FieldCount; i++)
                 columnNames.Add(rdr.GetName(i));
             return columnNames;
+        }
+
+        private void CompleteQuery(ref StringBuilder builder, List<string> columns)
+        {
+            int listSize = columns.Count;
+            for (int i = 0; i < listSize; i++)
+            {
+                while (true)
+                {
+                    Console.WriteLine($"\nWanna change this column - {columns[i]}? y/n ");
+                    ConsoleKeyInfo answer = Console.ReadKey();
+                    if (answer.Key == ConsoleKey.Y)
+                    {
+                        Console.WriteLine("\nEnter new value: ");
+                        string newValue = Console.ReadLine();
+
+                        //TODO
+                        if ( == i) { builder.Append($"{columns[i]} = {newValue} "); }
+                        else { builder.Append($"{columns[i]} = {newValue},"); }
+                    }
+                    else if (answer.Key != ConsoleKey.N) { continue; }
+                    break;
+                }
+            }
         }
     }
 }

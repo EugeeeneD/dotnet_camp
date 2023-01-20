@@ -6,17 +6,18 @@ string connectionString = "Data Source=(local);Initial Catalog=SigmaCinemaDB;"
 CRUD test = new();
 
 //SELECT
-test.SelectAll(connectionString);
+/*test.SelectAll(connectionString);
 
 test.Select(connectionString);
 
 //INSERT
-/*string queryForInserting = "INSERT INTO Movies VALUES (NEWID(), 'GTO', 'No Description');";*/
-test.Insert(connectionString);
+*//*string queryForInserting = "INSERT INTO Movies VALUES (NEWID(), 'GTO', 'No Description');";*//*
+test.Insert(connectionString);*/
 
 //UPDATE
-string queryForUpdating = "UPDATE Movies SET Description = 'Some kind of description' WHERE Name = 'GTO';";
-test.Update(connectionString, queryForUpdating);
+/*string queryForUpdating = "UPDATE Movies SET ,Description = 'Some kind of description' WHERE Name = 'GTO';";*/
+test.Update(connectionString);
 
-//DELETE
+/*//DELETE
 test.Delete(connectionString);
+*/
