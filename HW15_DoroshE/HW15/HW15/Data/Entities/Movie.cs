@@ -11,6 +11,6 @@ namespace HW15.Data.Entities
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
-        public virtual ICollection<Showtime> Showtimes { get; set; }
+        public ICollection<Showtime> Showtimes { get; set; }
     }
 }

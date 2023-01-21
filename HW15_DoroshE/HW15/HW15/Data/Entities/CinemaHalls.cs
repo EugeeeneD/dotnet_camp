@@ -10,6 +10,6 @@ namespace HW15.Data.Entities
     {
         public Guid Id { get; set; }
         public string Address { get; set; }
-        public virtual ICollection<Hall> Halls { get; set; }
+        public ICollection<Hall> Halls { get; set; }
     }
 }
