@@ -9,7 +9,9 @@ namespace HW15.Data.Entities
     public class Hall
     {
         public Guid Id { get; set; }
+        public Guid CinemaGuid { get; set; }
         public CinemaHalls CinemaHall { get; set; }
         public ICollection<Seat> Seats { get; set; }
+        public ICollection<Showtime> Showtimes { get; set; }
     }
 }

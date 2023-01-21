@@ -9,8 +9,10 @@ namespace HW15.Data.Entities
     public class Seat
     {
         public Guid Id { get; set; }
+        public Guid HallGuid { get; set; }
         public Hall Hall { get; set; }
         public decimal SeatPriceCoef { get; set; }
         public int SeatNumber { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
     }
 }

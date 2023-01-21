@@ -4,6 +4,7 @@ using HW15.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HW15.Migrations
 {
     [DbContext(typeof(CinemaDBContext))]
-    partial class CinemaDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230121132550_schema_v1.6")]
+    partial class schema_v16
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,7 +200,6 @@ namespace HW15.Migrations
                     b.HasOne("HW15.Data.Entities.CinemaHalls", "CinemaHall")
                         .WithMany("Halls")
                         .HasForeignKey("CinemaGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("CinemaHall");
@@ -209,7 +210,6 @@ namespace HW15.Migrations
                     b.HasOne("HW15.Data.Entities.Hall", "Hall")
                         .WithMany("Seats")
                         .HasForeignKey("HallGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Hall");
@@ -231,19 +231,16 @@ namespace HW15.Migrations
                     b.HasOne("HW15.Data.Entities.Seat", "Seat")
                         .WithMany("Tickets")
                         .HasForeignKey("SeatGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HW15.Data.Entities.Showtime", "Showtime")
                         .WithMany("Tickets")
                         .HasForeignKey("ShowtimeGuid")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HW15.Data.Entities.User", "User")
                         .WithMany("Tickets")
                         .HasForeignKey("UserGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Seat");
