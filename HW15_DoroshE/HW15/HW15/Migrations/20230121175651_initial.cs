@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HW15.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,14 +52,14 @@ namespace HW15.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CinemaHallId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CinemaGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Halls", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Halls_CinemaHalls_CinemaHallId",
-                        column: x => x.CinemaHallId,
+                        name: "FK_Halls_CinemaHalls_CinemaGuid",
+                        column: x => x.CinemaGuid,
                         principalTable: "CinemaHalls",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -70,7 +70,7 @@ namespace HW15.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HallId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HallGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SeatPriceCoef = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     SeatNumber = table.Column<int>(type: "int", nullable: false)
                 },
@@ -78,8 +78,8 @@ namespace HW15.Migrations
                 {
                     table.PrimaryKey("PK_Seats", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Seats_Halls_HallId",
-                        column: x => x.HallId,
+                        name: "FK_Seats_Halls_HallGuid",
+                        column: x => x.HallGuid,
                         principalTable: "Halls",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -92,21 +92,20 @@ namespace HW15.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    MovieId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HallId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    MovieGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HallGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Showtimes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Showtimes_Halls_HallId",
-                        column: x => x.HallId,
+                        name: "FK_Showtimes_Halls_HallGuid",
+                        column: x => x.HallGuid,
                         principalTable: "Halls",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Showtimes_Movies_MovieId",
-                        column: x => x.MovieId,
+                        name: "FK_Showtimes_Movies_MovieGuid",
+                        column: x => x.MovieGuid,
                         principalTable: "Movies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -117,68 +116,68 @@ namespace HW15.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SeatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ShowtimeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SeatGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ShowtimeGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TotalSum = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tickets_Seats_SeatId",
-                        column: x => x.SeatId,
+                        name: "FK_Tickets_Seats_SeatGuid",
+                        column: x => x.SeatGuid,
                         principalTable: "Seats",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tickets_Showtimes_ShowtimeId",
-                        column: x => x.ShowtimeId,
+                        name: "FK_Tickets_Showtimes_ShowtimeGuid",
+                        column: x => x.ShowtimeGuid,
                         principalTable: "Showtimes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tickets_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Tickets_Users_UserGuid",
+                        column: x => x.UserGuid,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Halls_CinemaHallId",
+                name: "IX_Halls_CinemaGuid",
                 table: "Halls",
-                column: "CinemaHallId");
+                column: "CinemaGuid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Seats_HallId",
+                name: "IX_Seats_HallGuid",
                 table: "Seats",
-                column: "HallId");
+                column: "HallGuid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Showtimes_HallId",
+                name: "IX_Showtimes_HallGuid",
                 table: "Showtimes",
-                column: "HallId");
+                column: "HallGuid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Showtimes_MovieId",
+                name: "IX_Showtimes_MovieGuid",
                 table: "Showtimes",
-                column: "MovieId");
+                column: "MovieGuid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_SeatId",
+                name: "IX_Tickets_SeatGuid",
                 table: "Tickets",
-                column: "SeatId");
+                column: "SeatGuid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_ShowtimeId",
+                name: "IX_Tickets_ShowtimeGuid",
                 table: "Tickets",
-                column: "ShowtimeId");
+                column: "ShowtimeGuid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_UserId",
+                name: "IX_Tickets_UserGuid",
                 table: "Tickets",
-                column: "UserId");
+                column: "UserGuid");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

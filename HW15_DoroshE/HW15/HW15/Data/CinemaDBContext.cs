@@ -20,8 +20,9 @@ namespace HW15.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=JOHEN1;Database=CinemaNetwork;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-        }
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-HOPA162;Database=CinemaNetwork;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            //optionsBuilder.UseSqlServer("Data Source=JOHEN1;Database=CinemaNetwork;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,14 +45,11 @@ namespace HW15.Data
                 .IsRequired();
 
             modelBuilder.Entity<Showtime>()
-                .HasMany(x => x.Halls)
-                .WithMany(x => x.Showtimes);
-
-            modelBuilder.Entity<User>()
-                .HasMany(x => x.Tickets)
-                .WithOne(x => x.User)
-                .HasForeignKey(x => x.UserGuid)
-                .IsRequired();
+                .HasOne(x => x.Hall)
+                .WithMany(x => x.Showtimes)
+                .HasForeignKey(x => x.HallGuid)
+                .IsRequired()
+                .Metadata.DeleteBehavior = DeleteBehavior.NoAction;
 
             modelBuilder.Entity<Ticket>()
                 .HasOne(x => x.Seat)
