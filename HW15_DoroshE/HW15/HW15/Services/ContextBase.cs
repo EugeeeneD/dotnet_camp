@@ -37,5 +37,16 @@ namespace HW15.Services
             _context.Set<TEntity>().Add(entity);
             _context.SaveChanges();
         }
+
+        public void Delete<TEntity>(TEntity entity) where TEntity : class
+        {
+            _context.Set<TEntity>().Remove(entity);
+            _context.SaveChanges();
+        }
+        public void Update<TEntity>(TEntity entity) where TEntity : class
+        {
+            _context.Set<TEntity>().Update(entity);
+            _context.SaveChanges();
+        }
     }
 }
