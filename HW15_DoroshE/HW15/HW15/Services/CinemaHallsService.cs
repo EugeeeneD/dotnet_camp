@@ -1,5 +1,6 @@
 ﻿using HW15.Data;
 using HW15.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HW15.Services
 {
-    public class CinemaHallsService : Context
+    public class CinemaHallsService : ContextBase
     {
         public CinemaHallsService(CinemaDBContext context) : base(context)
         {
@@ -18,17 +19,17 @@ namespace HW15.Services
         {
         }
 
-        public List<CinemaHalls> GetAllCinemaHalls()
+        public async Task<List<CinemaHalls>> GetAllCinemaHallsAsync()
         {
-            return _context.CinemaHalls.ToList();
+            return await _context.CinemaHalls.ToListAsync();
         }
 
-        public CinemaHalls GetCinemaHallByAddress(string address)
+        public CinemaHalls GetCinemaHallByAddressAsycn(string address)
         {
-            return _context.CinemaHalls.FirstOrDefault(x => x.Address == address);
+            return await _context.CinemaHalls.FirstOrDefaultAsync(x => x.Address == address);
         }
-
-        public void AddCinemaHalls(CinemaHalls cinemaHall)
+        
+        public async void AddCinemaHallsAsync(CinemaHalls cinemaHall)
         {
             await _context.CinemaHalls.AddAsync(cinemaHall);
             _context.SaveChangesAsync();
