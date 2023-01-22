@@ -27,7 +27,7 @@ namespace HW15.Services
             return _context.Set<TEntity>().AsNoTracking();
         }
 
-        public IQueryable<TEntity> FindBy<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class
+        public IQueryable<TEntity> FindWhere<TEntity>(Expression<Func<TEntity, bool>> expression) where TEntity : class
         {
             return _context.Set<TEntity>().Where(expression).AsNoTracking();
         }

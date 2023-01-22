@@ -24,7 +24,7 @@ namespace HW15.Services
             return await _context.CinemaHalls.ToListAsync();
         }
 
-        public CinemaHalls GetCinemaHallByAddressAsycn(string address)
+        public async Task<CinemaHalls> GetCinemaHallByAddressAsycn(string address)
         {
             return await _context.CinemaHalls.FirstOrDefaultAsync(x => x.Address == address);
         }
