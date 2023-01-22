@@ -1,4 +1,5 @@
-﻿using HW15.Data.Entities;
+﻿using HW15.Data;
+using HW15.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,15 @@ namespace HW15.Services
 {
     public class UserService : ContextBase
     {
+        public UserService()
+        {
+            _context = new CinemaDBContext();
+        }
+
+        public UserService(CinemaDBContext context) : base(context)
+        {
+        }
+
         public IQueryable<User> FindAll()
         {
             return base.FindAll<User>();

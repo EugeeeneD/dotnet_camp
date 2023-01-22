@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,28 +12,38 @@ namespace HW15.Services
 {
     public class CinemaHallsService : ContextBase
     {
+        public CinemaHallsService()
+        {
+            _context = new CinemaDBContext();
+        }
+
         public CinemaHallsService(CinemaDBContext context) : base(context)
         {
         }
 
-        public CinemaHallsService() : base()
+        public IQueryable<CinemaHalls> FindAll()
         {
+            return base.FindAll<CinemaHalls>();
         }
 
-        public async Task<List<CinemaHalls>> GetAllCinemaHallsAsync()
+        public IQueryable<CinemaHalls> FindWhere(Expression<Func<CinemaHalls, bool>> expression)
         {
-            return await _context.CinemaHalls.ToListAsync();
+            return base.FindWhere<CinemaHalls>(expression);
         }
 
-        public async Task<CinemaHalls> GetCinemaHallByAddressAsycn(string address)
+        public void Add(CinemaHalls cinemaHall)
         {
-            return await _context.CinemaHalls.FirstOrDefaultAsync(x => x.Address == address);
+            base.Add<CinemaHalls>(cinemaHall);
         }
-        
-        public async void AddCinemaHallsAsync(CinemaHalls cinemaHall)
+
+        public void Update(CinemaHalls cinemaHall)
         {
-            await _context.CinemaHalls.AddAsync(cinemaHall);
-            _context.SaveChangesAsync();
+            base.Update<CinemaHalls>(cinemaHall);
+        }
+
+        public void Delete(CinemaHalls cinemaHall)
+        {
+            base.Delete<CinemaHalls>(cinemaHall);
         }
     }
 }
