@@ -22,21 +22,6 @@ namespace HW15.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("HallShowtime", b =>
-                {
-                    b.Property<Guid>("HallsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ShowtimesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("HallsId", "ShowtimesId");
-
-                    b.HasIndex("ShowtimesId");
-
-                    b.ToTable("HallShowtime");
-                });
-
             modelBuilder.Entity("HW15.Data.Entities.CinemaHalls", b =>
                 {
                     b.Property<Guid>("Id")
@@ -117,6 +102,9 @@ namespace HW15.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("HallGuid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("MovieGuid")
                         .HasColumnType("uniqueidentifier");
 
@@ -124,6 +112,8 @@ namespace HW15.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HallGuid");
 
                     b.HasIndex("MovieGuid");
 
@@ -178,21 +168,6 @@ namespace HW15.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("HallShowtime", b =>
-                {
-                    b.HasOne("HW15.Data.Entities.Hall", null)
-                        .WithMany()
-                        .HasForeignKey("HallsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HW15.Data.Entities.Showtime", null)
-                        .WithMany()
-                        .HasForeignKey("ShowtimesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("HW15.Data.Entities.Hall", b =>
                 {
                     b.HasOne("HW15.Data.Entities.CinemaHalls", "CinemaHall")
@@ -217,11 +192,19 @@ namespace HW15.Migrations
 
             modelBuilder.Entity("HW15.Data.Entities.Showtime", b =>
                 {
+                    b.HasOne("HW15.Data.Entities.Hall", "Hall")
+                        .WithMany("Showtimes")
+                        .HasForeignKey("HallGuid")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("HW15.Data.Entities.Movie", "Movie")
                         .WithMany("Showtimes")
                         .HasForeignKey("MovieGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Hall");
 
                     b.Navigation("Movie");
                 });
@@ -237,7 +220,7 @@ namespace HW15.Migrations
                     b.HasOne("HW15.Data.Entities.Showtime", "Showtime")
                         .WithMany("Tickets")
                         .HasForeignKey("ShowtimeGuid")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HW15.Data.Entities.User", "User")
@@ -261,6 +244,8 @@ namespace HW15.Migrations
             modelBuilder.Entity("HW15.Data.Entities.Hall", b =>
                 {
                     b.Navigation("Seats");
+
+                    b.Navigation("Showtimes");
                 });
 
             modelBuilder.Entity("HW15.Data.Entities.Movie", b =>

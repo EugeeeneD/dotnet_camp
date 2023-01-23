@@ -79,4 +79,5 @@ Seat fHallSeat4 = new()
 Showtime bladerunnerShowtime = new()
 {
     DateTime = Convert.ToDateTime("2023-02-01 18:00:00"),
+
 }
