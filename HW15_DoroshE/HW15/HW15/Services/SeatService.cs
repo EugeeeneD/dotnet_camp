@@ -47,7 +47,17 @@ namespace HW15.Services
 
         public IQueryable<Seat> GetFreeSeatsForShowtime(Showtime showtime)
         {
-            return _context.Seats
+            var reserved = _context.Tickets.Where(x => x.Showtime == showtime).Select(x => x.Seat);
+            Hall hall = reserved.First().Hall;
+            var allSeats = _context.Seats.Join(_context.Halls
+                .Where(x => x == hall), x => x.HallGuid, x => x.Id, (seat, hall) => new
+                {
+                    // шо буде в результат джоіну
+                    Seat = seat,
+                    Hall = hall
+                });
+
+
         }
     }
 }
