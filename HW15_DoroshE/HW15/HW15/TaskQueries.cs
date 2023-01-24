@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -79,6 +78,44 @@ namespace HW15
         }
 
         //TASK 6
-        // через 2 змінні і групбай
+        public IQueryable<CinemaHalls> LessThanTwoWeeksAgo()
+        {
+            var lastWeek = _context.Tickets
+                .Where(x => x.Showtime.DateTime < DateTime.Now && x.Showtime.DateTime > DateTime.Now.AddDays(-7))
+                .GroupBy(x => x.Showtime.Hall.CinemaHall);
+
+            var preLastWeek = _context.Tickets
+                .Where(x => x.Showtime.DateTime < DateTime.Now.AddDays(-7) && x.Showtime.DateTime > DateTime.Now.AddDays(-14))
+                .GroupBy(x => x.Showtime.Hall.CinemaHall);
+
+            var ticketsForBoth = lastWeek.Join(preLastWeek, x => x.Key, x => x.Key,
+                (last, preLast) => new
+                {
+                    Cinema = last.Key,
+                    LastWeek = last.Count(),
+                    PreLastWeek = preLast.Count()
+                });
+
+            return ticketsForBoth.Where(x => x.LastWeek < x.PreLastWeek).Select(x => x.Cinema);
+        }
+
+        //TASK 7
+        public Dictionary<User, User> Together()
+        {
+            Dictionary<User, User> res = new();
+
+            foreach (User user in _context.Users)
+            {
+                foreach (User secondUser in _context.Users)
+                {
+                    if(user != secondUser && user.Tickets == secondUser.Tickets)
+                    {
+                        res.Add(user, secondUser);
+                    }   
+                }
+            }
+
+            return res;
+        }
     }
 }
