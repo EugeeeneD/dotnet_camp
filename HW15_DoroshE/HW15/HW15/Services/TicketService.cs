@@ -44,5 +44,20 @@ namespace HW15.Services
         {
             base.Delete<Ticket>(ticket);
         }
+
+        public Ticket BuyTicket(User user, Seat seat, Showtime showtime)
+        {
+            SeatService seatService = new();
+            var freeSeats = seatService.GetFreeSeatsForShowtime(showtime)?? throw new ArgumentOutOfRangeException("No Free Place");
+
+            if (freeSeats.Contains(seat)) { throw new ArgumentException(); }
+
+            return new Ticket
+            {
+                Seat = seat,
+                Showtime = showtime,
+                User = user
+            };
+        }
     }
 }

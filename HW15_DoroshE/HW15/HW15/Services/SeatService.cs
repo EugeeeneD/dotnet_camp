@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace HW15.Services
 {
@@ -30,34 +31,31 @@ namespace HW15.Services
             return base.FindWhere<Seat>(expression);
         }
 
-        public void Add(Seat movie)
+        public void Add(Seat seat)
         {
-            base.Add<Seat>(movie);
+            base.Add<Seat>(seat);
         }
 
-        public void Update(Seat movie)
+        public void Update(Seat seat)
         {
-            base.Update<Seat>(movie);
+            base.Update<Seat>(seat);
         }
 
-        public void Delete(Seat movie)
+        public void Delete(Seat seat)
         {
-            base.Delete<Seat>(movie);
+            base.Delete<Seat>(seat);
         }
 
         public IQueryable<Seat> GetFreeSeatsForShowtime(Showtime showtime)
         {
             var reserved = _context.Tickets.Where(x => x.Showtime == showtime).Select(x => x.Seat);
+
             Hall hall = reserved.First().Hall;
+
             var allSeats = _context.Seats.Join(_context.Halls
-                .Where(x => x == hall), x => x.HallGuid, x => x.Id, (seat, hall) => new
-                {
-                    // шо буде в результат джоіну
-                    Seat = seat,
-                    Hall = hall
-                });
+                .Where(x => x == hall), x => x.HallGuid, x => x.Id, (seat, hall) => seat );
 
-
+            return allSeats.Where(x => !reserved.ToList().Contains(x)).AsNoTracking();
         }
     }
 }
