@@ -179,42 +179,42 @@ ticketService.Add(ticket3);*/
 
 TaskQueries tasks = new();
 
-/*//task1
+//task1
 Console.WriteLine("Task 1");
 var task1 = tasks.CurrentWeekShowtimes();
-await task1.ForEachAsync(x => Console.WriteLine(x.Movie.Name + " - " + x.DateTime));*/
+await task1.ForEachAsync(x => Console.WriteLine(x.Movie.Name + " - " + x.DateTime));
 
-/*//task2
+//task2
 Console.WriteLine("\nTask 2");
 CinemaDBContext context = new();
 var show = context.Showtimes.Include(x => x.Movie).FirstOrDefault();
 Console.WriteLine($"{show.Movie.Name} - {show.DateTime} - Hall: {show.HallGuid}");
 
 var task2 = tasks.AvaiblabeSeatsForShow(show);
-await task2.ForEachAsync(x => Console.WriteLine(x.SeatNumber));*/
+await task2.ForEachAsync(x => Console.WriteLine(x.SeatNumber));
 
-/*//task3
+//task3
 Console.WriteLine("\nTask 3");
 var task3 = tasks.NeverBooked();
-Console.WriteLine("Seat number and hall id");
-await task3.ForEachAsync(x => Console.WriteLine(x.SeatNumber + " - " + x.HallGuid));*/
+Console.WriteLine("Seat number and hall id:");
+await task3.ForEachAsync(x => Console.WriteLine(x.SeatNumber + " - " + x.HallGuid));
 
-/*//task4
+//task4
 Console.WriteLine("\nTask 4");
 var task4 = tasks.EarnedByMovie();
 foreach (var item in task4)
 {
     Console.WriteLine(item.Key + " - " + item.Value);
-}*/
+}
 
-/*//task5
+//task5
 Console.WriteLine("\nTask 5");
 var task5 = tasks.Top3Users(DateTime.Now, DateTime.Now.AddDays(55));
 
 foreach (var item in task5)
 {
     Console.WriteLine(item.Key.FirstName + " - " + item.Value);
-}*/
+}
 
 //task6
 Console.WriteLine("\nTask 6");
@@ -223,4 +223,13 @@ var task6 = tasks.LessThanTwoWeeksAgo();
 foreach (var item in task6)
 {
     Console.WriteLine(item.Address);
+}
+
+//task7
+Console.WriteLine("\nTask 7");
+var task7 = tasks.Together();
+
+foreach (var item in task7)
+{
+    Console.WriteLine(item.Key.FirstName + " - " + item.Value.FirstName);
 }

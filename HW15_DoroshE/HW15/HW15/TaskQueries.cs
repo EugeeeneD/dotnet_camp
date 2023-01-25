@@ -97,15 +97,15 @@ namespace HW15
                             });
 
                         return ticketsForBoth.Where(x => x.LastWeek < x.PreLastWeek).Select(x => x.Cinema).AsQueryable();*/
-
-            DateTime now = Convert.ToDateTime("2023-02-06");
+            //test thing
+            /*DateTime now = Convert.ToDateTime("2023-02-06");*/
 
             var lastWeek = _context.Tickets.Include(x => x.Showtime)
-                .Where(x => x.Showtime.DateTime < now && x.Showtime.DateTime > now.AddDays(-7)).Include(x => x.Showtime.Hall.CinemaHall).ToList()
+                .Where(x => x.Showtime.DateTime < DateTime.Now && x.Showtime.DateTime > DateTime.Now.AddDays(-7)).Include(x => x.Showtime.Hall.CinemaHall).ToList()
                 .GroupBy(x => x.Showtime.Hall.CinemaHall);
 
             var preLastWeek = _context.Tickets.Include(x => x.Showtime)
-                .Where(x => x.Showtime.DateTime < now.AddDays(-7) && x.Showtime.DateTime > now.AddDays(-14)).Include(x => x.Showtime.Hall.CinemaHall).ToList()
+                .Where(x => x.Showtime.DateTime < DateTime.Now.AddDays(-7) && x.Showtime.DateTime > DateTime.Now.AddDays(-14)).Include(x => x.Showtime.Hall.CinemaHall).ToList()
                 .GroupBy(x => x.Showtime.Hall.CinemaHall);
 
             var ticketsForBoth = lastWeek.Join(preLastWeek, x => x.Key, x => x.Key,
@@ -124,13 +124,15 @@ namespace HW15
         {
             Dictionary<User, User> res = new();
 
-            foreach (User user in _context.Users)
+            var users = _context.Users.Include(x => x.Tickets).ToList();
+
+            foreach (User firstUser in users)
             {
-                foreach (User secondUser in _context.Users)
+                foreach (User secondUser in users)
                 {
-                    if(user != secondUser && user.Tickets == secondUser.Tickets)
+                    if(firstUser != secondUser && firstUser.Tickets.All(x => secondUser.Tickets.Where(y => y.ShowtimeGuid == x.ShowtimeGuid).Count() > 0))
                     {
-                        res.Add(user, secondUser);
+                        if (!res.ContainsKey(firstUser)) { res.Add(firstUser, secondUser); }
                     }   
                 }
             }
