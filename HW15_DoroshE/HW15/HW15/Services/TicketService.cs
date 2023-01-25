@@ -11,9 +11,8 @@ namespace HW15.Services
 {
     internal class TicketService : ContextBase
     {
-        public TicketService()
+        public TicketService() : base()
         {
-            _context = new CinemaDBContext();
         }
 
         public TicketService(CinemaDBContext context) : base(context)

@@ -25,13 +25,9 @@ namespace HW15
         }
 
         //TASK 1
-        public IQueryable CurrentWeekShowtimes()
+        public IQueryable<Showtime> CurrentWeekShowtimes()
         {
-            return _context.Showtimes.Where(x => x.DateTime > DateTime.Now && x.DateTime < DateTime.Now.AddDays(7)).Select(x => new()
-            {
-                Movie = x.Movie.Name,
-                DateTime = x.DateTime
-            });
+            return _context.Showtimes.Where(x => x.DateTime > DateTime.Now && x.DateTime < DateTime.Now.AddDays(7));
         }
 
         //TASK 2
