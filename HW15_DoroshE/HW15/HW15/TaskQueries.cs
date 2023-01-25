@@ -27,7 +27,7 @@ namespace HW15
         //TASK 1
         public IQueryable<Showtime> CurrentWeekShowtimes()
         {
-            return _context.Showtimes.Where(x => x.DateTime > DateTime.Now && x.DateTime < DateTime.Now.AddDays(7));
+            return _context.Showtimes.Include(x => x.Movie).Where(x => x.DateTime > DateTime.Now && x.DateTime < DateTime.Now.AddDays(7));
         }
 
         //TASK 2
@@ -40,7 +40,7 @@ namespace HW15
         //TASK 3
         public IQueryable<Seat> NeverBooked()
         {
-            var reserved = _context.Tickets.Select(x => x.Seat);
+            var reserved = _context.Tickets.Include(x => x.Seat).Select(x => x.Seat);
 
             var allSeats = _context.Seats.Join(_context.Halls, x => x.HallGuid, x => x.Id, (seat, hall) => seat);
 
@@ -48,7 +48,7 @@ namespace HW15
         }
 
         //TASK 4
-        public Dictionary<Movie, decimal> EarnedByMovie()
+        public Dictionary<Guid, decimal> EarnedByMovie()
         {
 /*            var movieSum = _context.Showtimes.Join(_context.Tickets, x => x.Id, x => x.ShowtimeGuid,
                 (showtime, ticket) => new
@@ -59,9 +59,10 @@ namespace HW15
 
             var res = movieSum.GroupBy(x => x.movie).ToDictionary(x => x.Key, x => x.Sum(x => x.sum));*/
 
-            var res = _context.Showtimes.GroupBy(x => x.Movie).ToDictionary(x => x.Key, x => x.Sum(x => x.Tickets.Sum(x => x.TotalSum)));
-
-            res.OrderByDescending(x => x.Value);
+            var res = _context.Showtimes.Include(x => x.Tickets).ToList().GroupBy(x => x.MovieGuid)
+                .ToDictionary(x => x.Key, x => x.Sum(x => x.Tickets.Sum(x => x.TotalSum)))
+                .OrderByDescending(x => x.Value)
+                .ToDictionary(x => x.Key, x => x.Value);
 
             return res;
         }
@@ -70,18 +71,41 @@ namespace HW15
         public Dictionary<User, decimal> Top3Users(DateTime start, DateTime end)
         {
             var ticketsWithinBounderies = _context.Tickets.Where(x => x.Showtime.DateTime >= start && x.Showtime.DateTime <= end);
-            return ticketsWithinBounderies.GroupBy(x => x.User).ToDictionary(x => x.Key, x => x.Sum(x => x.TotalSum));
+            return ticketsWithinBounderies.Include(x => x.User).ToList().GroupBy(x => x.User).ToDictionary(x => x.Key, x => x.Sum(x => x.TotalSum))
+                .OrderByDescending(x => x.Value)
+                .Take(3)
+                .ToDictionary(x => x.Key, x => x.Value);
         }
 
         //TASK 6
         public IQueryable<CinemaHalls> LessThanTwoWeeksAgo()
         {
-            var lastWeek = _context.Tickets
-                .Where(x => x.Showtime.DateTime < DateTime.Now && x.Showtime.DateTime > DateTime.Now.AddDays(-7))
+            /*            var lastWeek = _context.Tickets
+                            .Where(x => x.Showtime.DateTime < DateTime.Now && x.Showtime.DateTime > DateTime.Now.AddDays(-7)).ToList()
+                            .GroupBy(x => x.Showtime.Hall.CinemaHall);
+
+                        var preLastWeek = _context.Tickets
+                            .Where(x => x.Showtime.DateTime < DateTime.Now.AddDays(-7) && x.Showtime.DateTime > DateTime.Now.AddDays(-14)).ToList()
+                            .GroupBy(x => x.Showtime.Hall.CinemaHall);
+
+                        var ticketsForBoth = lastWeek.Join(preLastWeek, x => x.Key, x => x.Key,
+                            (last, preLast) => new
+                            {
+                                Cinema = last.Key,
+                                LastWeek = last.Count(),
+                                PreLastWeek = preLast.Count()
+                            });
+
+                        return ticketsForBoth.Where(x => x.LastWeek < x.PreLastWeek).Select(x => x.Cinema).AsQueryable();*/
+
+            DateTime now = Convert.ToDateTime("2023-02-06");
+
+            var lastWeek = _context.Tickets.Include(x => x.Showtime)
+                .Where(x => x.Showtime.DateTime < now && x.Showtime.DateTime > now.AddDays(-7)).Include(x => x.Showtime.Hall.CinemaHall).ToList()
                 .GroupBy(x => x.Showtime.Hall.CinemaHall);
 
-            var preLastWeek = _context.Tickets
-                .Where(x => x.Showtime.DateTime < DateTime.Now.AddDays(-7) && x.Showtime.DateTime > DateTime.Now.AddDays(-14))
+            var preLastWeek = _context.Tickets.Include(x => x.Showtime)
+                .Where(x => x.Showtime.DateTime < now.AddDays(-7) && x.Showtime.DateTime > now.AddDays(-14)).Include(x => x.Showtime.Hall.CinemaHall).ToList()
                 .GroupBy(x => x.Showtime.Hall.CinemaHall);
 
             var ticketsForBoth = lastWeek.Join(preLastWeek, x => x.Key, x => x.Key,
@@ -92,7 +116,7 @@ namespace HW15
                     PreLastWeek = preLast.Count()
                 });
 
-            return ticketsForBoth.Where(x => x.LastWeek < x.PreLastWeek).Select(x => x.Cinema);
+            return ticketsForBoth.Where(x => x.LastWeek < x.PreLastWeek).Select(x => x.Cinema).AsQueryable();
         }
 
         //TASK 7

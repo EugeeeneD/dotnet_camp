@@ -1,7 +1,11 @@
-﻿using HW15.Data.Entities;
+﻿using HW15;
+using HW15.Data;
+using HW15.Data.Entities;
 using HW15.Services;
+using Microsoft.EntityFrameworkCore;
 
-User sara = new User
+//Data initializing
+/*User sara = new User
 {
     FirstName = "Sara",
     LastName = "Konor"
@@ -51,9 +55,15 @@ CinemaHalls multiplex = new()
 {
     Address = "Pid Dybom 73"
 };
+CinemaHalls garden = new()
+{
+    Address = "Naykova 54"
+};
+
 
 CinemaHallsService cinemaHallsService = new();
 cinemaHallsService.Add(multiplex);
+cinemaHallsService.Add(garden);
 
 Hall firstHall = new()
 {
@@ -103,16 +113,16 @@ seatService.Add(fHallSeat4);
 Showtime bladerunnerShowtime = new()
 {
     DateTime = Convert.ToDateTime("2023-02-01 18:00:00"),
-    Movie = bladerunner,
-    Hall = firstHall,
+    MovieGuid = bladerunner.Id,
+    HallGuid = firstHall.Id,
     Price = 200
 };
 
 Showtime darkShowtime = new()
 {
     DateTime = Convert.ToDateTime("2023-01-29 18:00:00"),
-    Movie = dark,
-    Hall = firstHall,
+    MovieGuid = dark.Id,
+    HallGuid = firstHall.Id,
     Price = 200
 };
 
@@ -122,41 +132,41 @@ showtimeService.Add(darkShowtime);
 
 Ticket ticketForTogether = new()
 {
-    User = sara,
-    Showtime = darkShowtime,
-    Seat = fHallSeat1,
+    UserGuid = sara.Id,
+    ShowtimeGuid = darkShowtime.Id,
+    SeatGuid = fHallSeat1.Id,
     TotalSum = darkShowtime.Price * fHallSeat1.SeatPriceCoef
 };
 
 Ticket ticketForTogether2 = new()
 {
-    User = luka,
-    Showtime = darkShowtime,
-    Seat = fHallSeat2,
+    UserGuid = luka.Id,
+    ShowtimeGuid = darkShowtime.Id,
+    SeatGuid = fHallSeat2.Id,
     TotalSum = darkShowtime.Price * fHallSeat2.SeatPriceCoef
 };
 
 Ticket ticket1 = new()
 {
-    User = kyrie,
-    Showtime = bladerunnerShowtime,
-    Seat = fHallSeat3,
+    UserGuid = kyrie.Id,
+    ShowtimeGuid = bladerunnerShowtime.Id,
+    SeatGuid = fHallSeat3.Id,
     TotalSum = bladerunnerShowtime.Price * fHallSeat3.SeatPriceCoef
 };
 
 Ticket ticket2 = new()
 {
-    User = kyrie,
-    Showtime = bladerunnerShowtime,
-    Seat = fHallSeat2,
+    UserGuid = kyrie.Id,
+    ShowtimeGuid = bladerunnerShowtime.Id,
+    SeatGuid = fHallSeat2.Id,
     TotalSum = bladerunnerShowtime.Price * fHallSeat2.SeatPriceCoef
 };
 
 Ticket ticket3= new()
 {
-    User = john,
-    Showtime = darkShowtime,
-    Seat = fHallSeat3,
+    UserGuid = john.Id,
+    ShowtimeGuid = darkShowtime.Id,
+    SeatGuid = fHallSeat3.Id,
     TotalSum = darkShowtime.Price * fHallSeat3.SeatPriceCoef
 };
 
@@ -165,4 +175,52 @@ ticketService.Add(ticketForTogether);
 ticketService.Add(ticketForTogether2);
 ticketService.Add(ticket1);
 ticketService.Add(ticket2);
-ticketService.Add(ticket3);
+ticketService.Add(ticket3);*/
+
+TaskQueries tasks = new();
+
+/*//task1
+Console.WriteLine("Task 1");
+var task1 = tasks.CurrentWeekShowtimes();
+await task1.ForEachAsync(x => Console.WriteLine(x.Movie.Name + " - " + x.DateTime));*/
+
+/*//task2
+Console.WriteLine("\nTask 2");
+CinemaDBContext context = new();
+var show = context.Showtimes.Include(x => x.Movie).FirstOrDefault();
+Console.WriteLine($"{show.Movie.Name} - {show.DateTime} - Hall: {show.HallGuid}");
+
+var task2 = tasks.AvaiblabeSeatsForShow(show);
+await task2.ForEachAsync(x => Console.WriteLine(x.SeatNumber));*/
+
+/*//task3
+Console.WriteLine("\nTask 3");
+var task3 = tasks.NeverBooked();
+Console.WriteLine("Seat number and hall id");
+await task3.ForEachAsync(x => Console.WriteLine(x.SeatNumber + " - " + x.HallGuid));*/
+
+/*//task4
+Console.WriteLine("\nTask 4");
+var task4 = tasks.EarnedByMovie();
+foreach (var item in task4)
+{
+    Console.WriteLine(item.Key + " - " + item.Value);
+}*/
+
+/*//task5
+Console.WriteLine("\nTask 5");
+var task5 = tasks.Top3Users(DateTime.Now, DateTime.Now.AddDays(55));
+
+foreach (var item in task5)
+{
+    Console.WriteLine(item.Key.FirstName + " - " + item.Value);
+}*/
+
+//task6
+Console.WriteLine("\nTask 6");
+var task6 = tasks.LessThanTwoWeeksAgo();
+
+foreach (var item in task6)
+{
+    Console.WriteLine(item.Address);
+}
