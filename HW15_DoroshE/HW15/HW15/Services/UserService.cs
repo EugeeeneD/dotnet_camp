@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace HW15.Services
 {
@@ -32,17 +33,24 @@ namespace HW15.Services
 
         public void Add(User user)
         {
-            base.Add<User>(user);
+            if (IsValidEmail(user.Email)) { base.Add<User>(user); }
+            else { throw new ArgumentException("Invalid email address."); }
         }
 
         public void Update(User user)
         {
-            base.Update<User>(user);
+            if (IsValidEmail(user.Email)) { base.Update<User>(user); }
+            else { throw new ArgumentException("Invalid email address."); }
         }
 
         public void Delete(User user)
         {
             base.Delete<User>(user);
+        }
+
+        public bool IsValidEmail(string email)
+        {
+            return email == null ? false : new EmailAddressAttribute().IsValid(email);
         }
     }
 }
