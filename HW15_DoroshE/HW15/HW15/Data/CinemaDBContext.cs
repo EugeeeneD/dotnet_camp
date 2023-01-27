@@ -1,5 +1,4 @@
 ﻿using HW15.Data.Entities;
-using HW15.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HW15.Data
 {
-    public class CinemaDBContext : DbContext, ICinemaDBContext
+    public class CinemaDBContext : DbContext
     {
         public CinemaDBContext(DbContextOptions options) : base(options)
         {
@@ -27,9 +26,12 @@ namespace HW15.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-HOPA162;Database=CinemaNetwork;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-            //optionsBuilder.UseSqlServer("Data Source=JOHEN1;Database=CinemaNetwork;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-HOPA162;Database=CinemaNetwork;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                //optionsBuilder.UseSqlServer("Data Source=JOHEN1;Database=CinemaNetwork;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
