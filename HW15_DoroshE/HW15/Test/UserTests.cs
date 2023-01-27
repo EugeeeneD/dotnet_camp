@@ -77,7 +77,8 @@ namespace Test
                 userService.Add(user);
 
                 //Assert
-                Assert.Equal(usersCountBefore, users.Count);
+                users = userService.FindAll().ToList();
+                Assert.Equal(usersCountBefore + 1, users.Count);
             }
         }
     }
