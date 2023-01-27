@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
 
 namespace HW15.Services
 {
@@ -50,7 +51,16 @@ namespace HW15.Services
 
         public bool IsValidEmail(string email)
         {
-            return email == null ? false : new EmailAddressAttribute().IsValid(email);
+            try
+            {
+                var i = new MailAddress(email);
+                if (!new EmailAddressAttribute().IsValid(email)) { return false; }
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
         }
     }
 }
