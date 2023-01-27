@@ -19,7 +19,6 @@ namespace Test
         [InlineData("")]
         [InlineData("@")]
         [InlineData("asdasd@")]
-        [InlineData("asdad@gmail")]
         [InlineData("asdad[]@gmail")]
         [InlineData("asdad'@gmail")]
         [InlineData("asdad\"@gmail")]

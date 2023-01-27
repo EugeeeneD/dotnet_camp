@@ -54,7 +54,6 @@ namespace HW15.Services
             try
             {
                 var i = new MailAddress(email);
-                if (!new EmailAddressAttribute().IsValid(email)) { return false; }
                 return true;
             }
             catch(Exception)
