@@ -1,4 +1,5 @@
 ﻿using HW15.Data.Entities;
+using HW15.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,14 @@ using System.Threading.Tasks;
 
 namespace HW15.Data
 {
-    public class CinemaDBContext : DbContext
+    public class CinemaDBContext : DbContext, ICinemaDBContext
     {
+        public CinemaDBContext(DbContextOptions options) : base(options)
+        {
+        }
+        public CinemaDBContext()
+        {
+        }
         public DbSet<CinemaHalls> CinemaHalls { get; set; }
         public DbSet<Hall> Halls { get; set; }
         public DbSet<Movie> Movies { get; set; }

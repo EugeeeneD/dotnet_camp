@@ -7,11 +7,10 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using HW15.Interface;
 
 namespace HW15.Services
 {
-    public class UserService : ContextBase, IUserService
+    public class UserService : ContextBase
     {
         public UserService()
         {
