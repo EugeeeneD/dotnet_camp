@@ -11,6 +11,7 @@ namespace HW15.Validators
     {
         public bool IsValid(string phone)
         {
+            // acceptable pattern - "+380123364325"
             return Regex.Match(phone, @"^(\+[0-9]{12})$").Success;
         }
     }

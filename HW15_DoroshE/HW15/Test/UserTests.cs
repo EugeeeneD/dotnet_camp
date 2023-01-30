@@ -46,6 +46,7 @@ namespace Test
                     Email = email,
                     FirstName = "Test",
                     LastName = "Test",
+                    PhoneNumber = "Test",
                     Id = Guid.NewGuid()
                 };
 
@@ -75,6 +76,7 @@ namespace Test
                     Email = email,
                     FirstName = "Test",
                     LastName = "Test",
+                    PhoneNumber = "Test",
                     Id = Guid.NewGuid()
                 };
 
@@ -105,6 +107,7 @@ namespace Test
                 Email = email,
                 FirstName = "Test",
                 LastName = "Test",
+                PhoneNumber = "Test",
                 Id = Guid.NewGuid()
             };
 
@@ -269,6 +272,36 @@ namespace Test
             //Assert
             Assert.False(res);
             Assert.Equal(message, expectedMessage);
+        }
+
+        [Theory]
+        [InlineData("+380977711403")]
+        public void IsValid_CorrectPhone_ShouldReturnTrue(string phone)
+        {
+            //Arrange
+            var validator = new PhoneNumberValidator();
+
+            //Act
+            bool res = validator.IsValid(phone);
+
+            //Assert
+            Assert.True(res);
+        }
+
+        [Theory]
+        [InlineData("+38-(09)23")]
+        [InlineData("adsdsa")]
+        [InlineData("")]
+        public void IsValid_IncorrectPhone_ShouldReturnFlase(string phone)
+        {
+            //Arrange
+            var validator = new PhoneNumberValidator();
+
+            //Act
+            bool res = validator.IsValid(phone);
+
+            //Assert
+            Assert.False(res);
         }
     }
 }
