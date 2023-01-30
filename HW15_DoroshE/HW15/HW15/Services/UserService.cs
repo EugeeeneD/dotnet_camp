@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mail;
+using HW15.Validator;
 
 namespace HW15.Services
 {
@@ -34,32 +35,21 @@ namespace HW15.Services
 
         public void Add(User user)
         {
-            if (IsValidEmail(user.Email)) { base.Add<User>(user); }
+            var emailValidator = new EmailValidator();
+            if (emailValidator.IsValid(user.Email)) { base.Add<User>(user); }
             else { throw new ArgumentException("Invalid email address."); }
         }
 
         public void Update(User user)
         {
-            if (IsValidEmail(user.Email)) { base.Update<User>(user); }
+            var emailValidator = new EmailValidator();
+            if (emailValidator.IsValid(user.Email)) { base.Update<User>(user); }
             else { throw new ArgumentException("Invalid email address."); }
         }
 
         public void Delete(User user)
         {
             base.Delete<User>(user);
-        }
-
-        public bool IsValidEmail(string email)
-        {
-            try
-            {
-                var i = new MailAddress(email);
-                return true;
-            }
-            catch(Exception)
-            {
-                return false;
-            }
         }
     }
 }

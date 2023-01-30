@@ -10,18 +10,24 @@ using HW15.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Reflection.Metadata;
+using HW15.Controllers;
+using HW15.Validator;
+using HW15.Validators;
 
 namespace Test
 {
     public class UserTests
     {
+        Mock<CinemaDBContext> contextMock = new Mock<CinemaDBContext>();
+        UserService userService;
+
         [Theory]
         [InlineData(null)]
         [InlineData("")]
         [InlineData("@")]
         [InlineData("asdasd@")]
         [InlineData("asdad[]@gmail")]
-        [InlineData("asdad'@gmail")]
+        [InlineData("asdad'@gmail")] // single quote is acceptable?
         [InlineData("asdad\"@gmail")]
         [InlineData("asdad\\'@gmail")]
         public void Add_InvalidEmails_ShouldThrowException_InMemoryVersion(string email)
@@ -80,7 +86,7 @@ namespace Test
             }
         }
 
-/*        [Theory]
+        [Theory]
         [InlineData(null)]
         [InlineData("")]
         [InlineData("@")]
@@ -92,8 +98,7 @@ namespace Test
         public void Add_InvalidEmails_ShouldThrowException_MockVersion(string email)
         {
             //Arrange 
-            var contextMock = new Mock<CinemaDBContext>();
-            UserService userService = new(contextMock.Object);
+            userService = new(contextMock.Object);
 
             User user = new()
             {
@@ -108,38 +113,69 @@ namespace Test
         }
 
         [Theory]
-        [InlineData("asdad@gmail.com")]
-        [InlineData("asdad@ymail.com")]
-        public void Add_ValidEmails_ShouldAddUser_MockVersion(string email)
+        [InlineData("", "", "", "First name is invalid.", false)]
+        [InlineData("a", "Lengrie", "asd@gmail.com", "First name is invalid.", false)]
+        [InlineData("Arnold", "Lengrie", "@", "Email is invalid.", false)]
+        [InlineData("Arnold", "Lengrie", "asdasd@", "Email is invalid.", false)]
+        [InlineData("Arnold", "Lengrie", "asdad[]@gmail", "Email is invalid.", false)]
+        [InlineData("Arnold", "Lengrie", "asdad\"@gmail", "Email is invalid.", false)]
+        [InlineData("Arnold", "Lengrie", "asd@gmail.com", "Alright.", true)]
+        public void ValidateUser_IsCorrectValidationWithEmail_Pass(string name, string lastName, string email, string expectedMessage, bool expectedResult)
         {
             //Arrange
-            var contextMock = new Mock<CinemaDBContext>();
+            var emailValidatorMock = new Mock<IEmailValidator>();
 
-            var users = new List<User>().AsQueryable();
-
-            var mockSet = new Mock<DbSet<User>>();
-            mockSet.As<IQueryable<User>>().Setup(m => m.Provider).Returns(users.Provider);
-            mockSet.As<IQueryable<User>>().Setup(m => m.Expression).Returns(users.Expression);
-            mockSet.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(users.ElementType);
-            mockSet.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(() => users.GetEnumerator());
-
-            contextMock.Setup(x => x.Users)
-
-            UserService userService = new(contextMock.Object);
-
-            User user = new()
+            switch (expectedMessage)
             {
-                Email = email,
-                FirstName = "Test",
-                LastName = "Test",
-                Id = Guid.NewGuid()
+                case "Email is invalid.":
+                    emailValidatorMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(false);
+                    break;
+                default:
+                    emailValidatorMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
+                    break;
+            }
+
+            var userContoller = new UserContoller(emailValidatorMock.Object);
+
+            User user = new User()
+            {
+                FirstName = name,
+                LastName = lastName,
+                Email = email
             };
 
             //Act
-            userService.Add(user);
+            var res = userContoller.ValidateUser(user, out string message);
 
             //Assert
-            Assert.Equal(usersCountBefore + 1, contextMock.Object.Users.Count());
-        }*/
+            Assert.Equal(res, expectedResult);
+            Assert.Equal(message, expectedMessage);
+        }
+
+        [Theory]
+        [InlineData("", "", "", "First name is invalid.", false)]
+        [InlineData("a", "Lengrie", "asd@gmail.com", "First name is invalid.", false)]
+        public void ValidateUser_IsCorrectValidationWithdName_Pass(string name, string lastName, string email, string expectedMessage, bool expectedResult)
+        {
+            //Arrange
+            var emailValidatorMock = new Mock<IEmailValidator>();
+            emailValidatorMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
+
+            var userContoller = new UserContoller(emailValidatorMock.Object);
+
+            User user = new User()
+            {
+                FirstName = name,
+                LastName = lastName,
+                Email = email
+            };
+
+            //Act
+            var res = userContoller.ValidateUser(user, out string message);
+
+            //Assert
+            Assert.Equal(res, expectedResult);
+            Assert.Equal(message, expectedMessage);
+        }
     }
 }
