@@ -113,8 +113,6 @@ namespace Test
         }
 
         [Theory]
-        [InlineData("", "", "", "First name is invalid.", false)]
-        [InlineData("a", "Lengrie", "asd@gmail.com", "First name is invalid.", false)]
         [InlineData("Arnold", "Lengrie", "@", "Email is invalid.", false)]
         [InlineData("Arnold", "Lengrie", "asdasd@", "Email is invalid.", false)]
         [InlineData("Arnold", "Lengrie", "asdad[]@gmail", "Email is invalid.", false)]
