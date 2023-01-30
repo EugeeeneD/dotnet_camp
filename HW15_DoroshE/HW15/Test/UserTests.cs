@@ -112,74 +112,74 @@ namespace Test
             Assert.Throws<ArgumentException>(() => userService.Add(user));
         }
 
+        // ------------------------------- USERVALIDATION VALIDDATA PART -------------------------------
+
+        [Theory]
+        [InlineData("Arnold", "", "", "", "Alright.", true)]
+        [InlineData("ValidName", "", "", "", "Alright.", true)]
+        public void ValidateUser_ValidationWithValidData_Correct(string name, string lastName, string email, string phoneNumber, string expectedMessage, bool expectedResult)
+        {
+            //Arrange
+            var emailValidatorMock = new Mock<IEmailValidator>();
+            var phoneValidatorMock = new Mock<IPhoneNumberValidator>();
+
+            emailValidatorMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
+            phoneValidatorMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
+
+            var userContoller = new UserContoller(emailValidatorMock.Object, phoneValidatorMock.Object);
+
+            User user = new User()
+            {
+                FirstName = name,
+                LastName = lastName,
+                Email = email,
+                PhoneNumber = phoneNumber
+            };
+
+            //Act
+            var res = userContoller.ValidateUser(user, out string message);
+
+            //Assert
+            Assert.True(res);
+            Assert.Equal(message, expectedMessage);
+        }
+
         // ------------------------------- EMAILS PART -------------------------------
 
         [Theory]
-        [InlineData("Arnold", "Lengrie", "@", "Email is invalid.", false)]
-        [InlineData("Arnold", "Lengrie", "asdasd@", "Email is invalid.", false)]
-        [InlineData("Arnold", "Lengrie", "asdad[]@gmail", "Email is invalid.", false)]
-        [InlineData("Arnold", "Lengrie", "asdad\"@gmail", "Email is invalid.", false)]
-        public void ValidateUser_ValidationWithInvalidEmail_Pass(string name, string lastName, string email, string expectedMessage, bool expectedResult)
+        [InlineData("Arnold", "Lengrie", "asdad\"@gmail", "", "Email is invalid.")]
+        public void ValidateUser_ValidationWithInvalidEmail_ShouldReturnFalse(string name, string lastName, string email, 
+            string phoneNumber, string expectedMessage)
         {
             //Arrange
-            var emailValidatorMock = new EmailValidator();
+            var emailValidatorMock = new Mock<IEmailValidator>();
             var phoneValidatorMock = new Mock<IPhoneNumberValidator>();
 
+            phoneValidatorMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(false);
             phoneValidatorMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
 
-            var userContoller = new UserContoller(emailValidatorMock, phoneValidatorMock.Object);
+            var userContoller = new UserContoller(emailValidatorMock.Object, phoneValidatorMock.Object);
             
             User user = new User()
             {
                 FirstName = name,
                 LastName = lastName,
-                Email = email
+                Email = email,
+                PhoneNumber = phoneNumber
             };
 
             //Act
             var res = userContoller.ValidateUser(user, out string message);
 
             //Assert
-            Assert.Equal(res, expectedResult);
+            Assert.False(res);
             Assert.Equal(message, expectedMessage);
         }
 
         [Theory]
-        [InlineData("Arnold", "Lengrie", "asd@gmail.com", "Alright.", true)]
-        [InlineData("Arnold", "Lengrie", "asd@tt", "Alright.", true)]
-        public void ValidateUser_ValidationWithValidEmail_Pass(string name, string lastName, string email, string expectedMessage, bool expectedResult)
-        {
-            //Arrange
-            var emailValidatorMock = new EmailValidator();
-            var phoneValidatorMock = new Mock<IPhoneNumberValidator>();
-
-            phoneValidatorMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
-
-            var userContoller = new UserContoller(emailValidatorMock, phoneValidatorMock.Object);
-
-            User user = new User()
-            {
-                FirstName = name,
-                LastName = lastName,
-                Email = email
-            };
-
-            //Act
-            var res = userContoller.ValidateUser(user, out string message);
-
-            //Assert
-            Assert.Equal(res, expectedResult);
-            Assert.Equal(message, expectedMessage);
-        }
-
-        // ------------------------------- NAMES PART -------------------------------
-
-        [Theory]
-        [InlineData("", "", "","First name is invalid.", false)]
-        [InlineData("a", "Lengrie", "asd@gmail.com", "First name is invalid.", false)]
-        [InlineData("Anna", "Lengrie", "asd@gmail.com", "Alright.", true)]
-        [InlineData("Ben", "Lengrie", "asd@gmail.com", "Alright.", true)]
-        public void ValidateUser_IsCorrectValidationWithName_Pass(string name, string lastName, string email, string expectedMessage, bool expectedResult)
+        [InlineData("", "", "")]
+        [InlineData("a", "Lengrie", "asd@gmail.com")]
+        public void ValidateUser_DoesTheEmailValidateAfterInvalidName_Pass(string name, string lastName, string email)
         {
             //Arrange
             var emailValidatorMock = new Mock<IEmailValidator>();
@@ -201,18 +201,24 @@ namespace Test
             var res = userContoller.ValidateUser(user, out string message);
 
             //Assert
-            Assert.Equal(res, expectedResult);
-            Assert.Equal(message, expectedMessage);
+            emailValidatorMock.Verify(x => x.IsValid(email), Times.Never);
         }
 
+            // ------------------------------- NAMES PART -------------------------------
+
         [Theory]
-        [InlineData("", "", "")]
-        [InlineData("a", "Lengrie", "asd@gmail.com")]
-        public void ValidateUser_DoesTheEmailValidateAfterInvalidName_Pass(string name, string lastName, string email)
+        [InlineData("", "", "", "", "First name is invalid.")]
+        [InlineData("a", "Lengrie", "asd@gmail.com", "", "First name is invalid.")]
+
+        public void ValidateUser_ValidationWithInvalidName_ShouldReturnFalse(string name, string lastName, string email, 
+            string phoneNumber, string expectedMessage)
         {
             //Arrange
             var emailValidatorMock = new Mock<IEmailValidator>();
             var phoneValidatorMock = new Mock<IPhoneNumberValidator>();
+
+            emailValidatorMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
+            phoneValidatorMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
 
             var userContoller = new UserContoller(emailValidatorMock.Object, phoneValidatorMock.Object);
 
@@ -220,26 +226,32 @@ namespace Test
             {
                 FirstName = name,
                 LastName = lastName,
-                Email = email
+                Email = email,
+                PhoneNumber = phoneNumber
             };
 
             //Act
             var res = userContoller.ValidateUser(user, out string message);
 
             //Assert
-            emailValidatorMock.Verify(x => x.IsValid(email), Times.Never);
+            Assert.False(res);
+            Assert.Equal(message, expectedMessage);
         }
 
         // ------------------------------- PHONES PART -------------------------------
 
         [Theory]
-        [InlineData("", "", "")]
-        [InlineData("a", "Lengrie", "asd@gmail.com")]
-        public void ValidateUser_DoesTheEmailValidateAfterInvalidPhoneNumber_Pass(string name, string lastName, string email)
+        [InlineData("Arnold", "Lengrie", "asdad@gmail", "+393923", "Phone number is invalid.")]
+        [InlineData("Arnold", "Lengrie", "asdad@gmail", "+23232ew2", "Phone number is invalid.")]
+        public void ValidateUser_ValidationWithInvalidPhone_ShouldReturnFalse(string name, string lastName, string email,
+            string phoneNumber, string expectedMessage)
         {
             //Arrange
             var emailValidatorMock = new Mock<IEmailValidator>();
             var phoneValidatorMock = new Mock<IPhoneNumberValidator>();
+
+            emailValidatorMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
+            phoneValidatorMock.Setup(x => x.IsValid(It.IsAny<string>())).Returns(false);
 
             var userContoller = new UserContoller(emailValidatorMock.Object, phoneValidatorMock.Object);
 
@@ -247,14 +259,16 @@ namespace Test
             {
                 FirstName = name,
                 LastName = lastName,
-                Email = email
+                Email = email,
+                PhoneNumber = phoneNumber
             };
 
             //Act
             var res = userContoller.ValidateUser(user, out string message);
 
             //Assert
-            emailValidatorMock.Verify(x => x.IsValid(email), Times.Never);
+            Assert.False(res);
+            Assert.Equal(message, expectedMessage);
         }
     }
 }
